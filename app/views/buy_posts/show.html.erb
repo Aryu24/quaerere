@@ -1,0 +1,88 @@
+<div class="container">
+	<div class="row"> <!--募集内容詳細-->
+		<div class="col-md-8 mx-auto">
+			<div class="buy_posts_box">
+				<h3><%= @buy_post.title %></h3>
+				<%= attachment_image_tag @buy_post, :image, :fill, 300, 300, format:'jpeg', fallback: "no_image.jpg", size: '300x300' %>
+				<p>カテゴリ：<%= @buy_post.category %></p>
+				<p>ブランド：<%= @buy_post.brand %></p>
+				<p>希望上限価格：¥<%= converting_comma(@buy_post.maximum_price) %></p>
+				<p>希望する最低限の状態：<%= @buy_post.condition %></p>
+				<p>コメント：<%= @buy_post.comment %></p>
+				<p>ステータス：<%= @buy_post.status %></p>
+				<p>募集しているユーザー：
+					<%= link_to user_path(@buy_post.user_id) do %>
+						<%= @buy_post.user.nick_name %>
+					<% end %>
+				</p>
+				<% if user_signed_in? %>
+					<% if @buy_post.favorited_by?(current_user) %>
+						<%= link_to buy_post_favorites_path(@buy_post), method: :delete do %>
+				    		<i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
+				    		<%= @buy_post.favorites.count %> いいね
+				    	<% end %>
+					<% else %>
+						<%= link_to buy_post_favorites_path(@buy_post), method: :post do %>
+							<i class="far fa-heart" aria-hidden="true"></i>
+							<%= @buy_post.favorites.count %> いいね
+						<% end %>
+					<% end %>
+				<% else %>
+					<i class="fas fa-heart"></i>
+					<%= @buy_post.favorites.count %> いいね
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row"> <!--中段ボタン-->
+		<div class="col-md-8 mx-auto buy_posts_box">
+			<div class="text-center">
+				<% if @buy_post.user == current_user %>
+					<%= link_to edit_buy_post_path(@buy_post), class: "btn btn-success" do %>
+						<i class="fas fa-edit fa-1x"></i>
+						<span>内容を編集する</span>
+					<% end %>
+				<% else %>
+					<% if user_signed_in? %>
+						<% if @buy_post.offers.where(user_id: current_user.id).exists? %>
+							<%= link_to "オファーした内容を確認する", offer_path(@buy_post.offers.find_by(user_id: current_user.id)), class: "btn btn-success" %>
+						<% else %>
+							<%= link_to "この投稿にオファーする！", new_offer_path, class: "btn btn-danger" %>
+						<% end %>
+					<% else %>
+						<%= link_to "この投稿にオファーする！", new_user_session_path, class: "btn btn-danger" %>
+					<% end %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+	<div class="row"> <!--オファーリスト-->
+		<div class="col-md-8 mx-auto buy_posts_box">
+			<h6>【この募集へのオファー】</h6>
+			<% if @buy_post.offers.present? %>
+				<% @buy_post.offers.each do |offer| %>
+					<% if @buy_post.user == current_user || offer.user == current_user || offer.public_status == "全体に公開" %> <!--投稿ユーザーorオファーユーザーor全体に公開-->
+						<%= link_to offer_path(offer) do %> <!--テーブルにする-->
+							<p>
+								<%= offer.title %>
+								<span>
+									<%= offer.user.nick_name %>
+								</span>
+							</p>
+						<% end %>
+					<% else %>
+						<p>
+							<%= offer.title %>
+							<span>
+								<%= offer.user.nick_name %>
+							</span>
+						</p>
+					<% end %>
+				<% end %>
+			<% else %>
+				<p>まだオファーはありません</p>
+			<% end %>
+		</div>
+	</div>
+</div>

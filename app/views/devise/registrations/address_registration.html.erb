@@ -1,0 +1,52 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 mx-auto">
+
+	    	<h2>住所を登録</h2>
+
+	    	<div class="form-group">
+		        <%= form_for @user, url: user_registration_path do |f| %>
+					<%= render "devise/shared/error_messages", resource: resource %>
+					<%= f.hidden_field :nick_name %>
+					<%= f.hidden_field :last_name %>
+					<%= f.hidden_field :first_name %>
+					<%= f.hidden_field :last_name_read %>
+					<%= f.hidden_field :first_name_read %>
+					<%= f.hidden_field :phone_number %>
+					<%= f.hidden_field :email %>
+					<%= f.hidden_field :password %>
+
+					<div class="field">
+						<span>郵便番号</span><br />
+						<%= f.text_field :postcode, autofocus: true, autocomplete: "postcode", placeholder: "xxx-xxxx", class: "form-control" %>
+					</div>
+
+					<div class="field">
+						<span>都道府県</span><br />
+						<%= f.text_field :prefecture_code, autofocus: true, autocomplete: "prefecture_code", placeholder: "東京都", class: "form-control" %>
+					</div>
+
+					<div class="field">
+						<span>市区町村</span><br />
+						<%= f.text_field :address_city, autofocus: true, autocomplete: "address_city", placeholder: "渋谷区", class: "form-control" %>
+					</div>
+
+					<div class="field">
+						<span>番地</span><br />
+						<%= f.text_field :address_street, autofocus: true, autocomplete: "address_street", placeholder: "神南◯ー◯ー◯", class: "form-control" %>
+					</div>
+
+					<div class="field">
+						<span>建物名</span><br />
+						<%= f.text_field :address_building, autofocus: true, autocomplete: "address_building", placeholder: "◯◯ビル", class: "form-control" %>
+					</div>
+
+					<div class="actions text-center">
+						<%= f.submit "戻る", name: 'back', class: "btn btn-outline-success" %>
+						<%= f.submit "登録", class: "btn btn-outline-success" %>
+					</div>
+		        <% end %>
+	        </div>
+    	</div>
+	</div>
+</div>

@@ -1,0 +1,43 @@
+// Place all the styles related to the BuyPosts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.buy_posts{
+
+	//index(一覧)ページ
+	.buy_post_new_link{
+		position: fixed;
+		bottom: 40px;
+		right: 40px;
+		z-index: 999;
+	}
+	.buy_post_new_link:hover{
+		text-decoration: none;
+	}
+	.buy_post_new_btn{
+		width: 140px;
+		height: 140px;
+		color: #FFF;
+		background-color: red;
+		border-radius: 70px;
+		transition: all 0.6s ease;
+	}
+	.buy_post_new_btn:hover{
+		transform: scale(1.1);
+	}
+	.buy_post_new_btn_con{
+		padding-top: 20px;
+	}
+
+	.buy_posts_box{
+		margin: 20px 0px;
+		border: 1px solid #C0C0C0;
+		padding: 20px 0px;
+	}
+	.buy_post_card{
+		border: 1px solid #C0C0C0;
+		box-shadow: 3px 3px 3px #C0C0C0;
+		height: 350px;
+		margin: 10px 0px;
+	}
+}

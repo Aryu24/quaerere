@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+
+      <h2>アカウントを作成</h2>
+
+      <div class="form-group">
+        <%= form_for(resource, as: resource_name, url: {action: 'address_registration'}) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+
+          <div class="field">
+            <span>ニックネーム</span><br />
+            <%= f.text_field :nick_name, autofocus: true, autocomplete: "nick_name", placeholder: "クオレレ太郎", class: "form-control" %>
+          </div>
+
+          <div class="field">
+            <span>お名前(全角)</span><br />
+            <%= f.text_field :last_name, autofocus: true, autocomplete: "last_name", placeholder: "鈴木", class: "form-control" %>
+            <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name", placeholder: "太郎", class: "form-control" %>
+          </div>
+
+          <div class="field">
+            <span>お名前カナ(全角)</span><br />
+            <%= f.text_field :last_name_read, autofocus: true, autocomplete: "last_name_read", placeholder: "スズキ", class: "form-control" %>
+            <%= f.text_field :first_name_read, autofocus: true, autocomplete: "first_name_read", placeholder: "タロウ", class: "form-control" %>
+          </div>
+
+          <div class="field">
+            <span>電話番号</span><br />
+            <%= f.text_field :phone_number, autofocus: true, autocomplete: "phone_number", placeholder: "xxx-xxxx-xxxx", class: "form-control" %>
+          </div>
+
+          <div class="field">
+            <span>メールアドレス</span><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "xxx@xx.xx", class: "form-control" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :password %>
+            <% if @minimum_password_length %>
+              <em>
+                (<%= @minimum_password_length %> characters minimum)
+              </em>
+            <% end %><br />
+
+            <%= f.password_field :password, autocomplete: "new-password", placeholder: "6文字以上", class: "form-control" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :password_confirmation %><br />
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "パスワードをもう一度入力", class: "form-control" %>
+          </div>
+
+          <div class="actions text-center">
+            <%= f.submit "次へ進む", class: "btn btn-outline-success" %>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

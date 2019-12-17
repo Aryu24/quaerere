@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>クオレレ</title>
+    <%= favicon_link_tag('favicon.ico') %>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class='<%= "#{controller.controller_name}" %>'>
+    <header class="">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <nav class="nav">
+              <span class="">
+                <%= link_to image_tag("quaerere_logo.png", size: '180x55'), root_path %>
+              </span>
+            </nav>
+          </div>
+          <div class="col-md-9">
+            <ul class="nav justify-content-end">
+              <% if user_signed_in? %>
+                <li class="nav-item">
+                  <p>
+                    ようこそ<%= current_user.nick_name %>さん
+                  </p>
+                </li>
+                <li class="nav-item">
+                  <%= link_to ' マイページ', user_mypage_path(current_user.id), class: "nav-link btn btn-outline-dark" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to ' ログアウト', destroy_user_session_path, method: :delete, class: "nav-link btn btn-outline-danger" %>
+                </li>
+              <% else %>
+                <li class="nav-item">
+                  <%= link_to '新規会員登録', new_user_registration_path, class: "nav-link btn btn-danger" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to 'ログイン', new_user_session_path, class: "nav-link btn btn-outline-primary" %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+      </div>
+    </header>
+
+    <div>
+      <%= yield %>
+    </div>
+
+    <footer class="py-1 bg-dark">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <%= image_tag 'quaerere_logo.png', :size => '140x45', class: "footer-logo" %>
+          </div>
+          <div class="col-md-6 text-center">
+            <span class="">&copy;Quaerere, Inc.</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>

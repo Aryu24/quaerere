@@ -1,0 +1,55 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-8 mx-auto">
+			<div class="">
+				<h3><%= @offer.title %></h3>
+				<%= attachment_image_tag @offer, :image, :fill, 300, 300, format:'jpeg', fallback: "no_image.jpg", size: '300x300' %>
+				<p>オファー価格：¥<%= converting_comma(@offer.price) %></p>
+				<p>コンディション：<%= @offer.condition %></p>
+				<p>コメント：<%= @offer.comment %></p>
+				<p>公開設定：<%= @offer.public_status %></p>
+				<p>オファーユーザー：
+					<%= link_to user_path(@offer.user_id) do %>
+						<%= @offer.user.nick_name %>
+					<% end %>
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-8 mx-auto">
+			<div class="text-center">
+				<% if @offer.user == current_user %>
+					<%= link_to edit_offer_path(@offer), class: "btn btn-warning" do %>
+						<i class="fas fa-edit fa-1x"></i>
+						<span>オファー内容を編集する</span>
+					<% end %>
+				<% elsif @offer.buy_post.user == current_user %>
+					<h1>このオファーを受ける</h1>
+				<% end %>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-8 mx-auto">
+			<h3>コメント</h3>
+			<div>
+				<% @offer.offer_comments.each do |offer_comment| %>
+					<p>
+						<span>内容：</span>
+						<%= offer_comment.comment %>
+						<span>ユーザー：</span>
+						<%= offer_comment.user.nick_name %>
+					</p>
+				<% end %>
+			</div>
+			<div>
+				<%= form_for @offer_comment, url: offer_comments_path do |f| %>
+					<%= f.text_area :comment, placeholder: "コメントを入力", class: "form-control" %>
+					<%= f.submit "送信", class: "btn btn-dark" %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

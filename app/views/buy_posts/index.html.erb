@@ -1,0 +1,47 @@
+<div class="container">
+	<div class="buy_post_index">
+
+		<%= link_to new_buy_post_path, class: "buy_post_new_link" do %>
+			<div class="buy_post_new_btn">
+				<div class="text-center buy_post_new_btn_con">
+					<h4 class="">投稿</h4>
+					<i class="far fa-clipboard index-item fa-4x"></i>
+				</div>
+			</div>
+		<% end %>
+
+		<div class="buy_posts_box">
+		<div class="row">
+			<% @buy_posts.order(updated_at: :desc).each do |buy_post| %>
+				<div class="col-md-3">
+					<%= link_to buy_post_path(buy_post) do %>
+					<div class="buy_post_card">
+						<div>
+							<%= attachment_image_tag buy_post, :image, :fill, 245, 245, format:'jpeg', fallback: "no_image.jpg", size: '245x245' %>
+						</div>
+						<div>
+							<%= buy_post.title %>
+						</div>
+						<div>
+							<%= buy_post.brand %>
+						</div>
+						<div>
+							<span>予算：¥
+							<%= buy_post.maximum_price %>
+							まで</span>
+						</div>
+					</div>
+					<% end %>
+				</div>
+			<% end %>
+		</div>
+		<div class="row">
+			<div class="mx-auto">
+					<%= paginate @buy_posts, class: "paginate" %>
+			</div>
+		</div>
+		</div>
+	</div>
+
+	</div>
+</div>

@@ -1,0 +1,37 @@
+<div class="container">
+
+	<% if @buy_post.errors.any? %>
+		<div id="error_explanation" class="alert alert-danger">
+			<h3>
+	        	<%= pluralize(@buy_post.errors.count, "error") %> prohibited this obj from being saved:
+	    	</h3>
+			<ul>
+				<% @buy_post.errors.full_messages.each do |message| %>
+		 			<li><%= message %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<div class="row">
+		<div class="col-md-6 mx-auto">
+			<%= form_for @buy_post do |f| %>
+				<span>募集タイトル</span><br>
+				<%= f.text_field :title, autofocus: true, placeholder: "募集タイトルを入力",  class: "form-control" %>
+				<span>イメージ画像</span><br>
+				<%= f.attachment_field :image %><br>
+				<span>カテゴリ</span><br>
+				<%= f.select :category, [["レディース","レディース"],["メンズ","メンズ"],["ベビー・キッズ","ベビー・キッズ"],["インテリア・住まい・小物","インテリア・住まい・小物"],["本・音楽・ゲーム","本・音楽・ゲーム"],["ホビー・グッズ","ホビー・グッズ"],["コスメ・香水・美容","コスメ・香水・美容"],["家電・スマホ・カメラ","家電・スマホ・カメラ"],["スポーツ・レジャー","スポーツ・レジャー"],["ハンドメイド","ハンドメイド"],["チケット","チケット"],["自転車・バイク","自転車・バイク"],["その他","その他"]], autofocus: true, :prompt => "選択してください", class: "form-control" %><br>
+				<span>ブランド</span><br>
+				<%= f.text_field :brand, autofocus: true, placeholder: "ブランドを入力",  class: "form-control" %>
+				<span>希望価格の上限</span><br>
+				<%= f.number_field :maximum_price, autofocus: true, placeholder: "上限額を入力",  class: "form-control" %>
+				<span>希望する最低限の状態</span><br>
+				<%= f.select :condition, BuyPost.conditions.keys.to_a, {}, autofocus: true, :prompt => "選択してください", class: "form-control" %><br>
+				<span>募集内容の説明</span><br>
+				<%= f.text_area :comment, autofocus: true, placeholder: "説明文を入力",  class: "form-control" %>
+				<%= f.submit "投稿", class: "btn btn-danger" %>
+			<% end %>
+		</div>
+	</div>
+</div>
