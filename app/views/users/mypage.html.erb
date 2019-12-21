@@ -1,5 +1,32 @@
 <div class="container">
-	<div class="row">
-		<h1>Mypageです</h1>
+	<div class="row justify-content-center">
+		<div class="col-md-3">
+			<div>
+				<%= link_to("いいね一覧", user_favorites_path(@user), data: {"turbolinks" => false}, class: "btn btn-success") %>
+			</div>
+			<div>
+				<%= link_to "投稿一覧", user_buy_posts_path(@user), class: "btn btn-success" %>
+			</div>
+			<div>
+				<%= link_to "オファー 一覧", user_offers_path(@user), class: "btn btn-success" %>
+			</div>
+			<div>
+				<%= link_to "基本情報設定", edit_user_path(@user), class: "btn btn-success" %>
+			</div>
+		</div>
+		<div class="col-md-7">
+			<div class="text-center">
+				<%= attachment_image_tag @user, :image, :fill, 120, 120, format:'jpeg', fallback: "no_image.jpg", size: '120x120' %>
+				<p><%= @user.nick_name %>さん</p>
+			</div>
+			<% if @user.introduction.nil? %>
+				<p>自己紹介文はありません</p>
+			<% else %>
+				<p><%= simple_format(@user.introduction) %></p>
+			<% end %>
+			<div class="text-center">
+				<%= link_to "プロフィールを編集する", user_profile_edit_path(current_user), class: "btn btn-success" %>
+			</div>
+		</div>
 	</div>
 </div>

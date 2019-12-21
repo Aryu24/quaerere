@@ -1,17 +1,31 @@
 <div class="container">
+	<% if @offer.buy_post.status == "募集終了" %>
+		<div class="row">
+			<div class="col-md-6 mx-auto">
+				<div class="text-center">
+					<button class="btn btn-lg btn-secondary" disabled>
+						このオファー先の募集は終了しています
+					</button>
+				</div>
+			</div>
+		</div>
+	<% end %>
 	<div class="row">
 		<div class="col-md-8 mx-auto">
 			<div class="">
 				<h3><%= @offer.title %></h3>
 				<%= attachment_image_tag @offer, :image, :fill, 300, 300, format:'jpeg', fallback: "no_image.jpg", size: '300x300' %>
 				<p>オファー価格：¥<%= converting_comma(@offer.price) %></p>
-				<p>コンディション：<%= @offer.condition %></p>
+				<p>状態：<%= @offer.condition %></p>
 				<p>コメント：<%= @offer.comment %></p>
 				<p>公開設定：<%= @offer.public_status %></p>
 				<p>オファーユーザー：
 					<%= link_to user_path(@offer.user_id) do %>
 						<%= @offer.user.nick_name %>
 					<% end %>
+				</p>
+				<p>オファーユーザーの地域：
+					<%= @offer.user.prefecture_code %>
 				</p>
 			</div>
 		</div>
@@ -21,13 +35,34 @@
 		<div class="col-md-8 mx-auto">
 			<div class="text-center">
 				<% if @offer.user == current_user %>
-					<%= link_to edit_offer_path(@offer), class: "btn btn-warning" do %>
-						<i class="fas fa-edit fa-1x"></i>
-						<span>オファー内容を編集する</span>
+					<% if @trade.where(offer_id: @offer.id).exists? %>
+						<%= link_to trade_path(@offer.trade.id), class: "btn btn-success" do %>
+							<h1>取引ページへ</h1>
+						<% end %>
+					<% else %>
+						<%= link_to edit_offer_path(@offer), class: "btn btn-warning" do %>
+							<i class="fas fa-edit fa-1x"></i>
+							<span>オファー内容を編集する</span>
+						<% end %>
 					<% end %>
 				<% elsif @offer.buy_post.user == current_user %>
-					<h1>このオファーを受ける</h1>
+					<% if @trade.where(offer_id: @offer.id).exists? %>
+						<%= link_to trade_path(@offer.trade.id), class: "btn btn-success" do %>
+							<h1>取引ページへ</h1>
+						<% end %>
+					<% else %>
+						<%= link_to trades_path, method: :post, class: "btn btn-danger" do %>
+							<h1>このオファーを受ける</h1>
+						<% end %>
+					<% end %>
 				<% end %>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-8 mx-auto">
+			<div class="text-center">
+				<%= link_to "募集内容ページへ", buy_post_path(@offer.buy_post), class: "btn btn-outline-dark" %>
 			</div>
 		</div>
 	</div>
@@ -45,9 +80,21 @@
 				<% end %>
 			</div>
 			<div>
-				<%= form_for @offer_comment, url: offer_comments_path do |f| %>
-					<%= f.text_area :comment, placeholder: "コメントを入力", class: "form-control" %>
-					<%= f.submit "送信", class: "btn btn-dark" %>
+				<% if user_signed_in? %>
+					<% if @offer.buy_post.status == "募集中" %>
+						<%= form_for @offer_comment, url: offer_comments_path do |f| %>
+							<%= f.text_area :comment, placeholder: "コメントを入力", class: "form-control" %>
+							<%= f.submit "送信", class: "btn btn-dark" %>
+						<% end %>
+					<% else %>
+						<div>
+							<p><この募集は終了しているためコメントできません></p>
+						</div>
+					<% end %>
+				<% else %>
+					<div>
+						<p><コメントをするにはログインが必要です></p>
+					</div>
 				<% end %>
 			</div>
 		</div>

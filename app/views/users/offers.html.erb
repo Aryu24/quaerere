@@ -1,0 +1,31 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h3><%= @user.nick_name %>さんのオファー 一覧</h3>
+		</div>
+	</div>
+	<div class="row">
+		<% @user.offers.order(updated_at: :desc).each do |offer| %>
+			<div class="col-md-3">
+				<%= link_to offer_path(offer) do %>
+				<div class="buy_post_card">
+					<div>
+						<%= attachment_image_tag offer, :image, :fill, 245, 245, format:'jpeg', fallback: "no_image.jpg", size: '245x245' %>
+					</div>
+					<div>
+						<%= offer.title %>
+					</div>
+					<div>
+						<%= offer.condition %>
+					</div>
+					<div>
+						<span>
+							オファー価格：¥<%= converting_comma(offer.price) %>
+						</span>
+					</div>
+				</div>
+				<% end %>
+			</div>
+		<% end %>
+	</div>
+</div>

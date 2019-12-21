@@ -1,0 +1,42 @@
+<div class="container">
+	<div class="row">
+		<table class="table table-hover">
+			<thead>
+				<th class="text-center"></th>
+				<th class="text-center">タイトル</th>
+				<th class="text-center">上限金額</th>
+				<th class="text-center">ステータス</th>
+			</thead>
+			<% if @favorites.present? %>
+				<% @favorites.each do |favorite| %>
+					<tr data-href="<%= buy_post_path(favorite.buy_post.id) %>" class="yubi">
+						<td class="text-center">
+							<%= attachment_image_tag favorite.buy_post, :image, :fill, 80, 80, format:'jpeg', fallback: "no_image.jpg", size: '80x80' %>
+						</td>
+						<td class="text-center">
+							<span>
+								<%= favorite.buy_post.title %>
+							</span>
+						</td>
+						<td class="text-center">
+							<span>
+								¥<%= converting_comma(favorite.buy_post.maximum_price) %>まで
+							</span>
+						</td>
+						<td class="text-center">
+							<span>
+								<%= favorite.buy_post.status %>
+							</span>
+						</td>
+					</tr>
+				<% end %>
+			<% else %>
+				<tr>
+					<td colspan="4" class="text-center">
+						<span>いいね はありません</span>
+					</td>
+				</tr>
+			<% end %>
+		</table>
+	</div>
+</div>

@@ -21,6 +21,7 @@ class OffersController < ApplicationController
   def show
   	@offer = Offer.find(params[:id])
   	@offer_comment = OfferComment.new
+  	@trade = Trade.all
   end
 
   def edit

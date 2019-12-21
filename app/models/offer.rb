@@ -6,6 +6,7 @@ class Offer < ApplicationRecord
   belongs_to :buy_post
 
   has_many :offer_comments, dependent: :destroy
+  has_one :trade, validate: true
 
   attachment :image
 

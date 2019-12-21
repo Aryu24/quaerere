@@ -1,0 +1,117 @@
+<div class="container">
+	<% if @trade.status == "取引完了" %>
+		<div class="row">
+			<div class="col-md-10 mx-auto">
+				<h3 class="text-center">
+					取引が完了しました。<br>
+					この度はクオレレのご利用ありがとうございました。
+				</h3>
+			</div>
+		</div>
+	<% elsif @trade.status == "完了待ち" %>
+		<div class="row">
+			<div class="col-md-6 mx-auto">
+				<% if @trade.trade_users.find_by(finish_status: true).user_id == current_user.id %>
+					<h3 class="text-center">
+						完了ボタンを押しました。<br>
+						取引相手が完了ボタンを押すまで<br>
+						今しばらくお待ちください。
+					</h3>
+				<% else %>
+					<h3 class="text-center">
+						取引相手が完了ボタンを押しました。<br>
+						内容に問題がなければ完了ボタンを<br>
+						押して取引を完了してください。
+					</h3>
+				<% end %>
+			</div>
+		</div>
+	<% end %>
+	<div class="row justify-content-center">
+		<div class="col-md-3">
+			<p>取引相手の情報</p>
+			<%= link_to user_path(@trade.trade_users.where.not(user_id: current_user.id).find_by(trade_id: @trade.id).user.id) do %>
+				<div>
+					<%= attachment_image_tag @trade.trade_users.where.not(user_id: current_user.id).find_by(trade_id: @trade.id).user, :image, :fill, 80, 80, format:'jpeg', fallback: "no_image.jpg", size: '80x80' %>
+					<%= @trade.trade_users.where.not(user_id: current_user.id).find_by(trade_id: @trade.id).user.nick_name %>
+					さん
+				</div>
+			<% end %>
+		</div>
+		<div class="col-md-7">
+			<% @trade.trade_messages.each do |message| %>
+				<div>
+					<p>
+						<%= message.user.nick_name %>：
+						<%= message.message %>
+						<<%= simple_time(message.created_at) %>>
+					</p>
+				</div>
+			<% end %>
+			<div>
+				<%= form_for @message, url: trade_messages_path do |f| %>
+					<%= f.text_area :message, placeholder: "取引メッセージを入力", class: "form-control" %>
+					<%= f.submit "取引メッセージを送る" %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6 mx-auto">
+			<div class="text-center">
+				<% if @trade.status == "取引完了" %>
+					<button class="btn btn-lg btn-secondary" disabled>
+						取引完了
+					</button>
+				<% else %>
+					<% if @trade.trade_users.find_by(user_id: current_user.id).finish_status == false %>
+						<%= link_to "取引を完了する", trade_user_path(@trade.trade_users.find_by(user_id: current_user.id)), method: :patch, class: "btn btn-lg btn-danger" %>
+					<% else %>
+						<button class="btn btn-lg btn-secondary" disabled>
+							完了待ち
+						</button>
+					<% end %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+	<div class="row justify-content-center ">
+		<div class="col-md-5">
+			<p>募集内容</p>
+			<%= link_to buy_post_path(@trade.offer.buy_post) do %>
+				<p>
+					タイトル：<%= @trade.offer.buy_post.title %>
+				</p>
+				<p>
+					希望上限価格：¥<%= converting_comma(@trade.offer.buy_post.maximum_price) %>まで
+				</p>
+				<p>
+					希望する最低限の状態：<%= @trade.offer.buy_post.condition %>
+				</p>
+				<p>
+					コメント：<%= @trade.offer.buy_post.comment %>
+				</p>
+				<p>
+					ブランド：<%= @trade.offer.buy_post.brand %>
+				</p>
+			<% end %>
+		</div>
+		<div class="col-md-5">
+			<p>オファー内容</p>
+			<%= link_to offer_path(@trade.offer) do %>
+				<p>
+					タイトル：<%= @trade.offer.title %>
+				</p>
+				<p>
+					オファー価格：¥<%= converting_comma(@trade.offer.price) %>
+				</p>
+				<p>
+					状態：<%= @trade.offer.condition %>
+				</p>
+				<p>
+					コメント：<%= @trade.offer.comment %>
+				</p>
+			<% end %>
+		</div>
+	</div>
+</div>

@@ -19,6 +19,7 @@
 				<span>オファータイトル</span><br>
 				<%= f.text_field :title, autofocus: true, placeholder: "オファータイトルを入力",  class: "form-control" %>
 				<span>画像</span><br>
+				<%= attachment_image_tag @offer, :image, :fill, 300, 300, format:'jpeg', fallback: "no_image.jpg", size: '300x300' %><br>
 				<%= f.attachment_field :image %><br>
 				<span>オファー価格</span><br>
 				<%= f.number_field :price, autofocus: true, placeholder: "価格を入力",  class: "form-control" %>

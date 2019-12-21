@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+
+      <h2>基本情報の変更</h2>
+
+      <div class="form-group">
+        <%= form_for @user do |f| %>
+
+          <div class="field">
+            <span>お名前(全角)</span><br />
+            <%= f.text_field :last_name, autofocus: true, autocomplete: "last_name", placeholder: "鈴木", class: "form-control" %>
+            <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name", placeholder: "太郎", class: "form-control" %>
+          </div>
+
+          <div class="field">
+            <span>お名前カナ(全角)</span><br />
+            <%= f.text_field :last_name_read, autofocus: true, autocomplete: "last_name_read", placeholder: "スズキ", class: "form-control" %>
+            <%= f.text_field :first_name_read, autofocus: true, autocomplete: "first_name_read", placeholder: "タロウ", class: "form-control" %>
+          </div>
+
+          <div class="field">
+            <span>電話番号</span><br />
+            <%= f.text_field :phone_number, autofocus: true, autocomplete: "phone_number", placeholder: "xxx-xxxx-xxxx", class: "form-control" %>
+          </div>
+
+          <div class="field">
+            <span>メールアドレス</span><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "xxx@xx.xx", class: "form-control" %>
+          </div>
+
+          <div class="field">
+            <span>郵便番号</span><br />
+            <%= f.text_field :postcode, autofocus: true, autocomplete: "postcode", placeholder: "xxx-xxxx", class: "form-control" %>
+          </div>
+
+          <div class="field">
+            <span>都道府県</span><br />
+            <%= f.text_field :prefecture_code, autofocus: true, autocomplete: "prefecture_code", placeholder: "東京都", class: "form-control" %>
+          </div>
+
+          <div class="field">
+            <span>市区町村</span><br />
+            <%= f.text_field :address_city, autofocus: true, autocomplete: "address_city", placeholder: "渋谷区", class: "form-control" %>
+          </div>
+
+          <div class="field">
+            <span>番地</span><br />
+            <%= f.text_field :address_street, autofocus: true, autocomplete: "address_street", placeholder: "神南◯ー◯ー◯", class: "form-control" %>
+          </div>
+
+          <div class="field">
+            <span>建物名</span><br />
+            <%= f.text_field :address_building, autofocus: true, autocomplete: "address_building", placeholder: "◯◯ビル", class: "form-control" %>
+          </div>
+
+          <div class="actions text-center">
+            <%= f.submit "変更", class: "btn btn-outline-success" %>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

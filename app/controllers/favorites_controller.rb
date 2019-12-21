@@ -1,4 +1,5 @@
 class FavoritesController < ApplicationController
+
 	def create
 		buy_post = BuyPost.find(params[:buy_post_id])
         favorite = current_user.favorites.new(buy_post_id: buy_post.id)

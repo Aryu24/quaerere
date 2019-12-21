@@ -7,5 +7,7 @@ class User < ApplicationRecord
   has_many :buy_posts
   has_many :favorites, dependent: :destroy
   has_many :offers
+  has_many :trade_users
+  has_many :trade_messages
   attachment :image
 end

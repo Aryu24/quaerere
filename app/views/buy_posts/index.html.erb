@@ -10,38 +10,51 @@
 			</div>
 		<% end %>
 
-		<div class="buy_posts_box">
-		<div class="row">
-			<% @buy_posts.order(updated_at: :desc).each do |buy_post| %>
-				<div class="col-md-3">
-					<%= link_to buy_post_path(buy_post) do %>
-					<div class="buy_post_card">
-						<div>
-							<%= attachment_image_tag buy_post, :image, :fill, 245, 245, format:'jpeg', fallback: "no_image.jpg", size: '245x245' %>
-						</div>
-						<div>
-							<%= buy_post.title %>
-						</div>
-						<div>
-							<%= buy_post.brand %>
-						</div>
-						<div>
-							<span>予算：¥
-							<%= buy_post.maximum_price %>
-							まで</span>
-						</div>
-					</div>
-					<% end %>
-				</div>
-			<% end %>
-		</div>
-		<div class="row">
-			<div class="mx-auto">
-					<%= paginate @buy_posts, class: "paginate" %>
+		<div class="row justify-content-center">
+			<div class="col-md-4">
+				<%= search_form_for(@search, url: root_path) do |f| %>
+					<%= f.search_field :title_or_comment_or_brand_cont, :placeholder => "検索ワードを入力", class: "form-control d-inline", style:"width:250px" %>
+					<%= f.submit "検索", class: "btn btn-primary btn-sm" %>
+				<% end %>
 			</div>
 		</div>
-		</div>
-	</div>
 
+		<div class="buy_posts_box">
+			<h3>新着募集</h3>
+			<div class="row">
+				<% @buy_posts.order(updated_at: :desc).each do |buy_post| %>
+					<div class="col-md-3">
+						<%= link_to buy_post_path(buy_post) do %>
+						<div class="buy_post_card">
+							<div>
+								<% if buy_post.status == "募集終了" %>
+									<h2 class="position-test">
+										募集終了
+									</h2>
+								<% end %>
+								<%= attachment_image_tag buy_post, :image, :fill, 252, 252, format:'jpeg', fallback: "no_image.jpg", size: '252x252' %>
+							</div>
+							<div>
+								<%= buy_post.title %>
+							</div>
+							<div>
+								<%= buy_post.brand %>
+							</div>
+							<div>
+								<span>予算：¥
+								<%= converting_comma(buy_post.maximum_price) %>
+								まで</span>
+							</div>
+						</div>
+						<% end %>
+					</div>
+				<% end %>
+			</div>
+			<div class="row">
+				<div class="mx-auto">
+						<%= paginate @buy_posts, class: "paginate" %>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>

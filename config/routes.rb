@@ -15,6 +15,12 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :edit, :update]
 
   get 'users/:id/mypage' => 'users#mypage', as: "user_mypage"
+  get 'users/:id/favorites' => 'users#favorites', as: "user_favorites"
+  get 'users/:id/profile_edit' => 'users#profile_edit', as: "user_profile_edit"
+  get 'users/:id/buy_posts' => 'users#buy_posts', as: "user_buy_posts"
+  get 'users/:id/offers' => 'users#offers', as: "user_offers"
+
+
 
   resources :buy_posts, only: [:index, :new, :create, :show, :edit, :update, :destroy] do
   	resource :favorites, only: [:create, :destroy]
@@ -22,5 +28,8 @@ Rails.application.routes.draw do
 
   resources :offers, path: '/buy_posts/:id/offers/'
   resources :offer_comments, only: [:create, :destroy], path: '/buy_posts/:id/offers/:id/offer_comment'
+  resources :trades, only: [:create, :show], path: '/buy_posts/:id/offers/:id/trades/'
+  resources :trade_messages, only: [:create, :destroy], path: '/buy_posts/:id/offers/:id/trades/:id/trade_messages'
+  resources :trade_users, only: [:update], path: '/buy_posts/:id/offers/:id/trades/:id/trade_users'
 
 end

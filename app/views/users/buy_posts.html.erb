@@ -1,18 +1,5 @@
 <div class="container">
 	<div class="row">
-		<div class="col-md-8 mx-auto">
-			<div class="text-center">
-				<%= attachment_image_tag @user, :image, :fill, 120, 120, format:'jpeg', fallback: "no_image.jpg", size: '120x120' %>
-				<p><%= @user.nick_name %>さん</p>
-			</div>
-			<% if @user.introduction.nil? %>
-				<p>自己紹介文はありません</p>
-			<% else %>
-				<p><%= @user.introduction %></p>
-			<% end %>
-		</div>
-	</div>
-	<div class="row">
 		<div class="col-md-12">
 			<h3><%= @user.nick_name %>さんの募集一覧</h3>
 		</div>
