@@ -1,3 +1,80 @@
 // Place all the styles related to the Offers controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.offers{
+
+	//・show(オファー詳細)ページ
+	.end-btn{
+		margin-bottom: 30px;
+	}
+	.offer_detail{
+		background-color: #FFF;
+		padding: 20px 20px;
+		margin: 0px 0px 30px 0px;
+	}
+	.offer_detail .title{
+		margin-bottom: 15px;
+	}
+	.offer_data{
+		padding-top: 40px;
+		padding-bottom: 10px;
+		width: 90%;
+	}
+	.off_tr th{
+		width: 40%;
+	}
+	.middle-btn{
+		margin-bottom: 30px;
+	}
+	.middle-btn .btn{
+		width: 70%;
+	}
+	.offer_comment{
+		background-color: #FFF;
+		padding: 20px 20px;
+		margin: 0px 0px 60px 0px;
+	}
+	.offer_comment_detail{
+		margin-bottom: 15px;
+	}
+	.offer_comment img{
+		width: 40px;
+		height: 40px;
+		border-radius: 40px;
+	}
+	.offer_comment_content{
+		padding: 10px;
+		margin: 5px;
+		border:1px solid #DDDDDD;
+		border-radius: 10px;
+	}
+	.offer_comment_time{
+		color: #999999;
+	}
+	.offer_comment_post{
+		margin: 30px 0px 0px 0px;
+	}
+	.offer_comment_post .btn{
+		margin-top: 5px;
+	}
+
+	//・new(オファー作成)ページ
+	.offer-new{
+		margin-bottom: 60px;
+	}
+	.offer-new h3{
+		margin-bottom: 20px;
+	}
+	.offer-new .off-list{
+		margin-bottom: 10px;
+	}
+	.off-detail{
+		margin-bottom: 40px;
+	}
+
+	//・edit(オファー編集)ページ
+	.off-list img{
+		margin:30px;
+	}
+}

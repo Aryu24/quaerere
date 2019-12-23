@@ -1,8 +1,9 @@
 <div class="container">
+
 	<% if @offer.buy_post.status == "募集終了" %>
 		<div class="row">
 			<div class="col-md-6 mx-auto">
-				<div class="text-center">
+				<div class="text-center end-btn">
 					<button class="btn btn-lg btn-secondary" disabled>
 						このオファー先の募集は終了しています
 					</button>
@@ -10,34 +11,88 @@
 			</div>
 		</div>
 	<% end %>
+
 	<div class="row">
 		<div class="col-md-8 mx-auto">
-			<div class="">
-				<h3><%= @offer.title %></h3>
-				<%= attachment_image_tag @offer, :image, :fill, 300, 300, format:'jpeg', fallback: "no_image.jpg", size: '300x300' %>
-				<p>オファー価格：¥<%= converting_comma(@offer.price) %></p>
-				<p>状態：<%= @offer.condition %></p>
-				<p>コメント：<%= @offer.comment %></p>
-				<p>公開設定：<%= @offer.public_status %></p>
-				<p>オファーユーザー：
-					<%= link_to user_path(@offer.user_id) do %>
-						<%= @offer.user.nick_name %>
-					<% end %>
-				</p>
-				<p>オファーユーザーの地域：
-					<%= @offer.user.prefecture_code %>
-				</p>
+			<div class="offer_detail">
+				<h3 class="text-center title">
+					<%= @offer.title %>
+				</h3>
+				<div class="text-center">
+					<%= attachment_image_tag @offer, :image, :fill, 300, 300, format:'jpeg', fallback: "no_image.jpg", size: '300x300' %>
+				</div>
+				<div class="offer_data mx-auto">
+					<table class="table">
+						<tr class="off_tr">
+							<th>
+								<p>オファー価格：</p>
+							</th>
+							<td>
+								¥<%= converting_comma(@offer.price) %>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<p>状態：</p>
+							</th>
+							<td>
+								<%= @offer.condition %>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<p>コメント：</p>
+							</th>
+							<td>
+								<%= simple_format(@offer.comment) %>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<p>公開設定：</p>
+							</th>
+							<td>
+								<%= @offer.public_status %>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<p>
+									オファーユーザー：
+								</p>
+							</th>
+							<td>
+								<%= link_to user_path(@offer.user_id) do %>
+									<%= @offer.user.nick_name %>
+								<% end %>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<p>
+									オファーユーザーの地域：
+								</p>
+							</th>
+							<td>
+								<%= @offer.user.prefecture_code %>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="text-right">
+					<%= link_to "募集内容ページへ", buy_post_path(@offer.buy_post), data: {"turbolinks" => false}, class: "btn btn-outline-dark" %>
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="row">
+	<div class="row"> <!--中段ボタン-->
 		<div class="col-md-8 mx-auto">
-			<div class="text-center">
+			<div class="text-center middle-btn">
 				<% if @offer.user == current_user %>
 					<% if @trade.where(offer_id: @offer.id).exists? %>
-						<%= link_to trade_path(@offer.trade.id), class: "btn btn-success" do %>
-							<h1>取引ページへ</h1>
+						<%= link_to trade_path(@offer.trade.id), data: {"turbolinks" => false}, class: "btn btn-success" do %>
+							<h3>取引ページへ</h3>
 						<% end %>
 					<% else %>
 						<%= link_to edit_offer_path(@offer), class: "btn btn-warning" do %>
@@ -47,55 +102,62 @@
 					<% end %>
 				<% elsif @offer.buy_post.user == current_user %>
 					<% if @trade.where(offer_id: @offer.id).exists? %>
-						<%= link_to trade_path(@offer.trade.id), class: "btn btn-success" do %>
-							<h1>取引ページへ</h1>
+						<%= link_to trade_path(@offer.trade.id), data: {"turbolinks" => false}, class: "btn btn-success" do %>
+							<h3>取引ページへ</h3>
 						<% end %>
 					<% else %>
-						<%= link_to trades_path, method: :post, class: "btn btn-danger" do %>
-							<h1>このオファーを受ける</h1>
+						<%= link_to trades_path, method: :post, data: {confirm: "本当にこのオファーを受けますか？\n（後からの取り消しはできません）"}, class: "btn btn-danger" do %>
+							<h3>このオファーを受ける</h3>
 						<% end %>
 					<% end %>
 				<% end %>
 			</div>
 		</div>
 	</div>
+
 	<div class="row">
 		<div class="col-md-8 mx-auto">
-			<div class="text-center">
-				<%= link_to "募集内容ページへ", buy_post_path(@offer.buy_post), class: "btn btn-outline-dark" %>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-8 mx-auto">
-			<h3>コメント</h3>
-			<div>
-				<% @offer.offer_comments.each do |offer_comment| %>
-					<p>
-						<span>内容：</span>
-						<%= offer_comment.comment %>
-						<span>ユーザー：</span>
-						<%= offer_comment.user.nick_name %>
-					</p>
-				<% end %>
-			</div>
-			<div>
-				<% if user_signed_in? %>
-					<% if @offer.buy_post.status == "募集中" %>
-						<%= form_for @offer_comment, url: offer_comments_path do |f| %>
-							<%= f.text_area :comment, placeholder: "コメントを入力", class: "form-control" %>
-							<%= f.submit "送信", class: "btn btn-dark" %>
-						<% end %>
-					<% else %>
-						<div>
-							<p><この募集は終了しているためコメントできません></p>
+			<div class="offer_comment">
+				<div class="offer_comment_detail">
+					<% @offer.offer_comments.each do |offer_comment| %>
+						<div class="">
+							<div>
+								<%= link_to user_path(offer_comment.user) do %>
+									<%= attachment_image_tag offer_comment.user, :image, format:'jpeg', fallback: "no_image.jpg" %>
+									<%= offer_comment.user.nick_name %>
+								<% end %>
+							</div>
+							<div class="offer_comment_content">
+								<%= simple_format(offer_comment.comment) %>
+							</div>
+							<div class="text-right offer_comment_time">
+								<%= simple_time(offer_comment.created_at) %>
+							</div>
 						</div>
 					<% end %>
-				<% else %>
-					<div>
-						<p><コメントをするにはログインが必要です></p>
-					</div>
-				<% end %>
+				</div>
+				<div>
+					<% if user_signed_in? %>
+						<% if @offer.buy_post.status == "募集中" %>
+							<div class="offer_comment_post">
+								<%= form_for @offer_comment, url: offer_comments_path do |f| %>
+									<%= f.text_area :comment, placeholder: "コメントを入力", class: "form-control" %>
+									<div class="text-right">
+										<%= f.submit "送信", class: "btn btn-dark" %>
+									</div>
+								<% end %>
+							</div>
+						<% else %>
+							<div class="text-center">
+								<p><この募集は終了しているためコメントできません></p>
+							</div>
+						<% end %>
+					<% else %>
+						<div class="text-center">
+							<p><コメントをするにはログインが必要です></p>
+						</div>
+					<% end %>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -24,18 +24,37 @@
 	box-sizing:border-box;
 }
 
+//全体に適応
+.yubi{
+	cursor:pointer;
+}
+
 /* stylesheets/application.scss(ヘッダー、フッター)に適応 */
 li{
-	list-style:none;
+	list-style: none;
 }
 header{
 	border-bottom:1px solid #C0C0C0;
+	background-color: #FFF;
+	margin-bottom: 30px;
+}
+header .row{
+	height: 80px;
+}
+.user_icon img{
+	width: 40px;
+	height: 40px;
+	border-radius: 40px;
+}
+.nav-item{
+	margin-left: 20px;
 }
 body{
 	min-height: 100vh;
 	position: relative;
-	padding-bottom: 75px; /*footerの高さ*/
+	padding-bottom: 70px; /*footerの高さ*/
 	box-sizing: border-box; /*全て含めてmin-height:100vhに*/
+	background-color: #EEEEEE;
 }
 footer{
 	width: 100%;

@@ -12,7 +12,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def address_registration
     @user = User.new(post_params)
-    render :new if @user.invalid?
   end
 
   # POST /resource
@@ -26,9 +25,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
         sign_up(resource_name, resource)
         redirect_to new_user_registration_complete_path
         return
+      else
+        render :address_registration
       end
     end
-    render :new
   end
 
   def registration_complete

@@ -1,31 +1,55 @@
 <div class="container">
-	<div class="row justify-content-center">
-		<div class="col-md-3">
-			<div>
-				<%= link_to("いいね一覧", user_favorites_path(@user), data: {"turbolinks" => false}, class: "btn btn-success") %>
-			</div>
-			<div>
-				<%= link_to "投稿一覧", user_buy_posts_path(@user), class: "btn btn-success" %>
-			</div>
-			<div>
-				<%= link_to "オファー 一覧", user_offers_path(@user), class: "btn btn-success" %>
-			</div>
-			<div>
-				<%= link_to "基本情報設定", edit_user_path(@user), class: "btn btn-success" %>
+	<div class="row">
+		<div class="col-md-3 offset-md-1">
+			<div class="user-content-l">
+				<table class="table table-hover user-content-l">
+					<tbody>
+						<tr>
+							<td data-href="<%= user_favorites_path(@user) %>" class="yubi">
+								いいね一覧
+							</td>
+						</tr>
+						<tr>
+							<td data-href="<%= user_buy_posts_path(@user) %>" class="yubi">
+								投稿一覧
+							</td>
+						</tr>
+						<tr>
+							<td data-href="<%= user_offers_path(@user) %>" class="yubi">
+								投稿したオファー
+							</td>
+						</tr>
+						<tr>
+							<td data-href="<%= edit_user_path(@user) %>" class="yubi td-end">
+								基本情報変更
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 		<div class="col-md-7">
-			<div class="text-center">
-				<%= attachment_image_tag @user, :image, :fill, 120, 120, format:'jpeg', fallback: "no_image.jpg", size: '120x120' %>
-				<p><%= @user.nick_name %>さん</p>
+			<div class="user-content-r">
+				<div class="text-center">
+					<%= attachment_image_tag @user, :image, format:'jpeg', fallback: "no_image.jpg" %>
+					<p><%= @user.nick_name %>さん</p>
+				</div>
+				<div class="text-center">
+					投稿数：<%= current_user.buy_posts.count %><br>
+					オファー数：<%= current_user.offers.count %>
+				</div>
 			</div>
-			<% if @user.introduction.nil? %>
-				<p>自己紹介文はありません</p>
-			<% else %>
-				<p><%= simple_format(@user.introduction) %></p>
-			<% end %>
-			<div class="text-center">
-				<%= link_to "プロフィールを編集する", user_profile_edit_path(current_user), class: "btn btn-success" %>
+			<div class="user-content-rb">
+				<div class="introduction">
+					<% if @user.introduction.nil? %>
+						<p>自己紹介文はありません</p>
+					<% else %>
+						<p><%= simple_format(@user.introduction) %></p>
+					<% end %>
+				</div>
+				<div class="text-right">
+					<%= link_to "プロフィールを編集", user_profile_edit_path(current_user), class: "btn btn-success" %>
+				</div>
 			</div>
 		</div>
 	</div>

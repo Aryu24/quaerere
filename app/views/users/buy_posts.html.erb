@@ -1,31 +1,57 @@
 <div class="container">
 	<div class="row">
-		<div class="col-md-12">
-			<h3><%= @user.nick_name %>さんの募集一覧</h3>
-		</div>
-	</div>
-	<div class="row">
-		<% @user.buy_posts.order(updated_at: :desc).each do |buy_post| %>
-			<div class="col-md-3">
-				<%= link_to buy_post_path(buy_post) do %>
-				<div class="buy_post_card">
-					<div>
-						<%= attachment_image_tag buy_post, :image, :fill, 245, 245, format:'jpeg', fallback: "no_image.jpg", size: '245x245' %>
-					</div>
-					<div>
-						<%= buy_post.title %>
-					</div>
-					<div>
-						<%= buy_post.brand %>
-					</div>
-					<div>
-						<span>予算：¥
-						<%= converting_comma(buy_post.maximum_price) %>
-						まで</span>
-					</div>
-				</div>
+		<div class="col-md-10 mx-auto user-content-rb">
+			<h3 class="text-center title">投稿した募集一覧</h3>
+			<table class="table table-hover">
+				<thead>
+					<th class="text-center"></th>
+					<th class="text-center">タイトル</th>
+					<th class="text-center">上限金額</th>
+					<th class="text-center">オファー数</th>
+					<th class="text-center">ステータス</th>
+				</thead>
+				<% if @user.buy_posts.present? %>
+					<% @user.buy_posts.each do |buy_post| %>
+						<tr data-href="<%= buy_post_path(buy_post) %>" class="yubi">
+							<td class="text-center">
+								<%= attachment_image_tag buy_post, :image, :fill, 70, 70, format:'jpeg', fallback: "no_image.jpg", size: '70x70' %>
+							</td>
+							<td class="text-center">
+								<span>
+									<%= buy_post.title %>
+								</span>
+							</td>
+							<td class="text-center">
+								<span>
+									¥<%= converting_comma(buy_post.maximum_price) %>まで
+								</span>
+							</td>
+							<td class="text-center">
+								<span>
+									<%= buy_post.offers.count %>
+								</span>
+							</td>
+							<td class="text-center">
+								<% if buy_post.status == "募集中" %>
+									<span class="btn btn-success btn-sm">
+										<%= buy_post.status %>
+									</span>
+								<% else %>
+									<span class="btn btn-danger btn-sm">
+										<%= buy_post.status %>
+									</span>
+								<% end %>
+							</td>
+						</tr>
+					<% end %>
+				<% else %>
+					<tr>
+						<td colspan="4" class="text-center">
+							<span>投稿した募集はありません</span>
+						</td>
+					</tr>
 				<% end %>
-			</div>
-		<% end %>
+			</table>
+		</div>
 	</div>
 </div>

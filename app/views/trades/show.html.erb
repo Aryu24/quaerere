@@ -1,6 +1,6 @@
 <div class="container">
 	<% if @trade.status == "取引完了" %>
-		<div class="row">
+		<div class="row justify-content-center trade-notice">
 			<div class="col-md-10 mx-auto">
 				<h3 class="text-center">
 					取引が完了しました。<br>
@@ -9,8 +9,8 @@
 			</div>
 		</div>
 	<% elsif @trade.status == "完了待ち" %>
-		<div class="row">
-			<div class="col-md-6 mx-auto">
+		<div class="row justify-content-center trade-notice">
+			<div class="col-md-10 mx-auto">
 				<% if @trade.trade_users.find_by(finish_status: true).user_id == current_user.id %>
 					<h3 class="text-center">
 						完了ボタンを押しました。<br>
@@ -27,38 +27,54 @@
 			</div>
 		</div>
 	<% end %>
-	<div class="row justify-content-center">
+	<div class="row justify-content-center trade_contents">
 		<div class="col-md-3">
-			<p>取引相手の情報</p>
-			<%= link_to user_path(@trade.trade_users.where.not(user_id: current_user.id).find_by(trade_id: @trade.id).user.id) do %>
-				<div>
-					<%= attachment_image_tag @trade.trade_users.where.not(user_id: current_user.id).find_by(trade_id: @trade.id).user, :image, :fill, 80, 80, format:'jpeg', fallback: "no_image.jpg", size: '80x80' %>
-					<%= @trade.trade_users.where.not(user_id: current_user.id).find_by(trade_id: @trade.id).user.nick_name %>
-					さん
+			<div class="text-center trade_partner_title">
+				<h6>取引のお相手</h6>
+			</div>
+			<div class="trade_partner">
+				<%= link_to user_path(@trade.trade_users.where.not(user_id: current_user.id).find_by(trade_id: @trade.id).user.id) do %>
+					<div class="text-center">
+						<%= attachment_image_tag @trade.trade_users.where.not(user_id: current_user.id).find_by(trade_id: @trade.id).user, :image, format:'jpeg', fallback: "no_image.jpg" %><br>
+						<%= @trade.trade_users.where.not(user_id: current_user.id).find_by(trade_id: @trade.id).user.nick_name %>
+						さん
+					</div>
+				<% end %>
+				<div class="text-center">
+					<%= @trade.trade_users.where.not(user_id: current_user.id).find_by(trade_id: @trade.id).user.prefecture_code %>
 				</div>
-			<% end %>
+			</div>
 		</div>
 		<div class="col-md-7">
-			<% @trade.trade_messages.each do |message| %>
-				<div>
-					<p>
-						<%= message.user.nick_name %>：
-						<%= message.message %>
-						<<%= simple_time(message.created_at) %>>
-					</p>
+			<div class="trade_comment_box">
+				<div class="trade_comment_detail">
+					<% @trade.trade_messages.each do |message| %>
+						<div>
+							<%= attachment_image_tag message.user, :image, format:'jpeg', fallback: "no_image.jpg" %>
+							<%= message.user.nick_name %>
+						</div>
+						<div class="trade_comment">
+							<%= simple_format(message.message) %>
+						</div>
+						<div class="text-right trade_comment_time">
+							<%= simple_time(message.created_at) %>
+						</div>
+					<% end %>
 				</div>
-			<% end %>
-			<div>
-				<%= form_for @message, url: trade_messages_path do |f| %>
-					<%= f.text_area :message, placeholder: "取引メッセージを入力", class: "form-control" %>
-					<%= f.submit "取引メッセージを送る" %>
-				<% end %>
+				<div class="trade_comment_post">
+					<%= form_for @message, url: trade_messages_path do |f| %>
+						<%= f.text_area :message, placeholder: "ここに取引メッセージを入力", class: "form-control" %>
+						<div class="text-right">
+							<%= f.submit "送信", class: "btn btn-success" %>
+						</div>
+					<% end %>
+				</div>
 			</div>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-6 mx-auto">
-			<div class="text-center">
+		<div class="col-md-8 mx-auto">
+			<div class="text-center middle-btn">
 				<% if @trade.status == "取引完了" %>
 					<button class="btn btn-lg btn-secondary" disabled>
 						取引完了
@@ -75,43 +91,45 @@
 			</div>
 		</div>
 	</div>
-	<div class="row justify-content-center ">
-		<div class="col-md-5">
-			<p>募集内容</p>
-			<%= link_to buy_post_path(@trade.offer.buy_post) do %>
-				<p>
-					タイトル：<%= @trade.offer.buy_post.title %>
-				</p>
-				<p>
-					希望上限価格：¥<%= converting_comma(@trade.offer.buy_post.maximum_price) %>まで
-				</p>
-				<p>
-					希望する最低限の状態：<%= @trade.offer.buy_post.condition %>
-				</p>
-				<p>
-					コメント：<%= @trade.offer.buy_post.comment %>
-				</p>
-				<p>
-					ブランド：<%= @trade.offer.buy_post.brand %>
-				</p>
-			<% end %>
-		</div>
-		<div class="col-md-5">
-			<p>オファー内容</p>
-			<%= link_to offer_path(@trade.offer) do %>
-				<p>
-					タイトル：<%= @trade.offer.title %>
-				</p>
-				<p>
-					オファー価格：¥<%= converting_comma(@trade.offer.price) %>
-				</p>
-				<p>
-					状態：<%= @trade.offer.condition %>
-				</p>
-				<p>
-					コメント：<%= @trade.offer.comment %>
-				</p>
-			<% end %>
+
+	<div class="row justify-content-center trade_detail">
+		<div class="col-md-10">
+			<table class="table">
+				<thead>
+					<tr>
+						<th class="trade_detail_head"></th>
+						<th class="trade_detail_post">募集内容</th>
+						<th class="trade_detail_offer">オファー内容</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>タイトル：</th>
+						<td  data-href="<%= buy_post_path(@trade.offer.buy_post) %>" class="yubi"><%= @trade.offer.buy_post.title %></td>
+						<td  data-href="<%= offer_path(@trade.offer) %>" class="yubi"><%= @trade.offer.title %></td>
+					</tr>
+					<tr>
+						<th>ブランド：</th>
+						<td  data-href="<%= buy_post_path(@trade.offer.buy_post) %>" class="yubi"><%= @trade.offer.buy_post.brand %></td>
+						<td></td>
+					</tr>
+					<tr>
+						<th>希望上限価格：</th>
+						<td  data-href="<%= buy_post_path(@trade.offer.buy_post) %>" class="yubi">¥<%= converting_comma(@trade.offer.buy_post.maximum_price) %>まで</td>
+						<td  data-href="<%= offer_path(@trade.offer) %>" class="yubi">¥<%= converting_comma(@trade.offer.price) %></td>
+					</tr>
+					<tr>
+						<th>希望する最低限の状態：</th>
+						<td  data-href="<%= buy_post_path(@trade.offer.buy_post) %>" class="yubi"><%= @trade.offer.buy_post.condition %></td>
+						<td  data-href="<%= offer_path(@trade.offer) %>" class="yubi"><%= @trade.offer.condition %></td>
+					</tr>
+					<tr>
+						<th>コメント：</th>
+						<td  data-href="<%= buy_post_path(@trade.offer.buy_post) %>" class="yubi"><%= simple_format(@trade.offer.buy_post.comment) %></td>
+						<td  data-href="<%= offer_path(@trade.offer) %>" class="yubi"><%= simple_format(@trade.offer.comment) %></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </div>

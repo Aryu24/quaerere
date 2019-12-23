@@ -1,9 +1,8 @@
 <div class="container">
-	<div class="row">
-		<div class="col-md-6 mx-auto">
+	<div class="row justify-content-center">
+		<div class="col-md-8 mx-auto sign-up-box">
 
-	    	<h2>住所を登録</h2>
-
+	    	<h3 class="text-center title">住所を登録</h3>
 	    	<div class="form-group">
 		        <%= form_for @user, url: user_registration_path do |f| %>
 					<%= render "devise/shared/error_messages", resource: resource %>
@@ -17,13 +16,13 @@
 					<%= f.hidden_field :password %>
 
 					<div class="field">
-						<span>郵便番号</span><br />
-						<%= f.text_field :postcode, autofocus: true, autocomplete: "postcode", placeholder: "xxx-xxxx", class: "form-control" %>
+						<span>郵便番号(ハイフンなし)</span><br />
+						<%= f.text_field :postcode, autofocus: true, autocomplete: "postcode", placeholder: "7桁の郵便番号をハイフンなしで入力", class: "form-control" %>
 					</div>
 
-					<div class="field">
+					<div class="">
 						<span>都道府県</span><br />
-						<%= f.text_field :prefecture_code, autofocus: true, autocomplete: "prefecture_code", placeholder: "東京都", class: "form-control" %>
+						<%= f.text_field :prefecture_code, collection: JpPrefecture::Prefecture.all, :value_method => :name, include_blank: '都道府県', placeholder: "東京都", class: "form-control" %><br>
 					</div>
 
 					<div class="field">
@@ -42,8 +41,10 @@
 					</div>
 
 					<div class="actions text-center">
-						<%= f.submit "戻る", name: 'back', class: "btn btn-outline-success" %>
-						<%= f.submit "登録", class: "btn btn-outline-success" %>
+						<div class="sign-up-btn">
+							<%= f.submit "戻る", name: 'back', class: "btn btn-outline-primary" %>
+							<%= f.submit "登録", class: "btn btn-danger" %>
+						</div>
 					</div>
 		        <% end %>
 	        </div>

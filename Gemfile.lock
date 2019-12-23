@@ -71,6 +71,9 @@ GEM
     bindex (0.8.1)
     bootsnap (1.4.5)
       msgpack (~> 1.0)
+    bootstrap4-kaminari-views (1.0.1)
+      kaminari (>= 0.13)
+      rails (>= 3.1)
     builder (3.2.3)
     byebug (11.0.1)
     capybara (3.29.0)
@@ -297,6 +300,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap (>= 1.1.0)
   bootstrap!
+  bootstrap4-kaminari-views
   byebug
   capybara (>= 2.15)
   chromedriver-helper
@@ -306,7 +310,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jp_prefecture
   jquery-rails
-  kaminari (~> 1.1.1)
+  kaminari
   listen (>= 3.0.5, < 3.2)
   pry-byebug
   puma (~> 3.11)

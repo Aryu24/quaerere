@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   	registrations: 'users/registrations'
   }
   devise_scope :user do
-  	post 'users/sign_up/address_registration' => 'users/registrations#address_registration', as: 'new_user_registration_address'
+  	get 'users/sign_up/address_registration' => 'users/registrations#address_registration', as: 'new_user_registration_address'
   	get 'users/sign_up/registration_complete' => 'users/registrations#registration_complete', as: 'new_user_registration_complete'
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   	resource :favorites, only: [:create, :destroy]
   end
 
-  resources :offers, path: '/buy_posts/:id/offers/'
+  resources :offers, only: [:new, :create, :show, :edit, :update, :destroy], path: '/buy_posts/:id/offers/'
   resources :offer_comments, only: [:create, :destroy], path: '/buy_posts/:id/offers/:id/offer_comment'
   resources :trades, only: [:create, :show], path: '/buy_posts/:id/offers/:id/trades/'
   resources :trade_messages, only: [:create, :destroy], path: '/buy_posts/:id/offers/:id/trades/:id/trade_messages'

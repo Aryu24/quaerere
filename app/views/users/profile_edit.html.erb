@@ -1,13 +1,23 @@
 <div class="container">
-	<div class="row">
-		<div class="col-md-8 mx-auto">
+	<div class="row justify-content-center">
+		<div class="col-md-8 mx-auto user-content-rb profile-edit">
+
+			<h3 class="text-center title">基本情報の変更</h3>
 			<%= form_for @user do |f| %>
-				<div class="text-center">
-					<%= attachment_image_tag @user, :image, :fill, 120, 120, format:'jpeg', fallback: "no_image.jpg", size: '120x120' %><br>
-					<%= f.attachment_field :image %>
-					<%= f.text_field :nick_name, autofocus: true, placeholder: "ニックネームを入力",  class: "form-control" %>
+				<div class="field">
+					<div class="text-center">
+						<%= attachment_image_tag @user, :image, :fill, 120, 120, format:'jpeg', fallback: "no_image.jpg", size: '120x120' %><br>
+						<%= f.attachment_field :image %>
+					</div>
 				</div>
-				<%= f.text_area :introduction, autofocus: true, placeholder: "自己紹介文を入力",  class: "form-control" %>
+				<div class="field">
+					<div class="form_title">ニックネーム</div>
+					<%= f.text_field :nick_name, autofocus: true, placeholder: "ニックネームを入力",required: :true,  class: "form-control" %>
+				</div>
+				<div class="field">
+					<div class="form_title">自己紹介</div>
+					<%= f.text_area :introduction, autofocus: true, placeholder: "自己紹介文を入力",  class: "introduction-form form-control" %>
+				</div>
 				<div class="text-center">
 					<%= f.submit "変更する", name: 'profile', class: "btn btn-success" %>
 				</div>

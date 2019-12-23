@@ -1,17 +1,15 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-6 mx-auto">
-
-      <h2>ログイン</h2>
-
+  <div class="row justify-content-center">
+    <div class="col-md-6 mx-auto login-box">
+      <h3 class="text-center">ログイン</h3>
       <div class="form-group">
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="field">
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "メールアドレス", class: "form-control" %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "メールアドレス",required: :true, class: "form-control" %>
           </div>
 
           <div class="field">
-            <%= f.password_field :password, autocomplete: "current-password", placeholder: "パスワード", class: "form-control" %>
+            <%= f.password_field :password, autocomplete: "current-password", placeholder: "パスワード",required: :true, class: "form-control" %>
           </div>
 
           <% if devise_mapping.rememberable? %>

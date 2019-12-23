@@ -1,8 +1,5 @@
 class OffersController < ApplicationController
 
-  def index
-  end
-
   def new
   	@offer = Offer.new
   end
@@ -30,15 +27,15 @@ class OffersController < ApplicationController
 
   def update
   	if Offer.exists?(params[:id]) #削除→戻る→変更された時のエラー対策
-		@offer = Offer.find(params[:id])
-		if @offer.update(offer_params)
-			redirect_to offer_path(@offer)
-		else
-			render :edit
-		end
-	else
-		redirect_to root_path #該当のオファーは削除されています的なflashあるといいかも
-	end
+		  @offer = Offer.find(params[:id])
+  		if @offer.update(offer_params)
+  			redirect_to offer_path(@offer)
+  		else
+  			render :edit
+  		end
+    else
+		  redirect_to root_path #該当のオファーは削除されています的なflashあるといいかも
+    end
   end
 
   def destroy
