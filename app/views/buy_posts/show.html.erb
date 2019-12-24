@@ -1,6 +1,6 @@
 <div class="container">
 	<div class="row"> <!--募集内容詳細-->
-		<div class="col-md-8 mx-auto">
+		<div class="col-md-10 mx-auto">
 			<div class="buy_post_detail">
 				<h3 class="text-center title">
 					<%= @buy_post.title %>
@@ -109,7 +109,7 @@
 	</div>
 
 	<div class="row"> <!--中段ボタン-->
-		<div class="col-md-8 mx-auto">
+		<div class="col-md-10 mx-auto">
 			<div class="text-center middle-btn">
 				<% if @buy_post.status == "募集中" %>
 					<% if @buy_post.user == current_user %>
@@ -144,7 +144,7 @@
 		</div>
 	</div>
 	<div class="row"> <!--オファーリスト-->
-		<div class="col-md-8 mx-auto">
+		<div class="col-md-10 mx-auto">
 			<div class="buy_post_detail">
 				<h6 class="">【この募集へのオファー】</h6>
 				<table class="table table-hover">
