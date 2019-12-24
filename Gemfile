@@ -84,6 +84,8 @@ gem 'font-awesome-sass', '~> 5.4.1'
 
 gem 'pry-byebug'
 
+gem 'rails-i18n'
+
 #AWSデプロイ用
 group :production do
   gem 'mysql2'
