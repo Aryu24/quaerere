@@ -63,11 +63,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 #以下original
 
-#AWSデプロイ用
-group :production do
-  gem 'mysql2'
-end
-
 gem 'devise'
 
 #検索用
@@ -88,3 +83,8 @@ gem 'jquery-rails'
 gem 'font-awesome-sass', '~> 5.4.1'
 
 gem 'pry-byebug'
+
+#AWSデプロイ用
+group :production do
+  gem 'mysql2'
+end
