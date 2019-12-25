@@ -1,4 +1,19 @@
 <div class="container">
+
+  <% if @user.errors.any? %>
+    <div class="row">
+      <div class="col-md-8 mx-auto">
+        <div id="error_explanation" class="alert alert-danger">
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
   <div class="row justify-content-center">
     <div class="col-md-8 mx-auto user-content-rb">
 

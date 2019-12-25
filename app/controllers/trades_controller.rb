@@ -1,5 +1,13 @@
 class TradesController < ApplicationController
 
+	before_action :authenticate_user!
+	before_action :correct_user, only: [:show]
+
+	def correct_user
+  		@trade = Trade.find(params[:id])
+  		redirect_to root_path unless @trade.trade_users.where(user_id: current_user.id).exists?
+  	end
+
 	def create
 		@trade = Trade.new
 		@offer = Offer.find(params[:id])

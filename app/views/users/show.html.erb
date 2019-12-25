@@ -7,8 +7,8 @@
 					<p><%= @user.nick_name %>さん</p>
 				</div>
 				<div class="text-center">
-					投稿数：<%= current_user.buy_posts.count %><br>
-					オファー数：<%= current_user.offers.count %>
+					投稿数：<%= @user.buy_posts.count %><br>
+					オファー数：<%= @user.offers.count %>
 				</div>
 			</div>
 			<div class="user-content-rb-show">

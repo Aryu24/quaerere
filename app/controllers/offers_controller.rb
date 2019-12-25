@@ -1,4 +1,17 @@
 class OffersController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :edit]
+  before_action :correct_user, only: [:edit]
+  before_action :show_correct_user, only: [:show]
+
+  def correct_user
+    @offer = Offer.find(params[:id])
+    redirect_to root_path unless @offer.user == current_user
+  end
+
+  def show_correct_user
+    @offer = Offer.find(params[:id])
+    redirect_to root_path unless @offer.user == current_user || @offer.buy_post.user == current_user
+  end
 
   def new
   	@offer = Offer.new

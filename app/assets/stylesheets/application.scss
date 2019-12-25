@@ -28,6 +28,13 @@
 .yubi{
 	cursor:pointer;
 }
+.alert ul{
+	margin-bottom: 0;
+	margin-left: 20px;
+}
+.alert li{
+	list-style: disc;
+}
 
 /* stylesheets/application.scss(ヘッダー、フッター)に適応 */
 li{

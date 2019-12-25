@@ -1,13 +1,24 @@
 <div class="container">
 	<div class="buy_post_index">
 
-		<%= link_to new_buy_post_path, class: "buy_post_new_link" do %>
-			<div class="buy_post_new_btn">
-				<div class="text-center buy_post_new_btn_con">
-					<h4 class="">投稿</h4>
-					<i class="far fa-clipboard index-item fa-4x"></i>
+		<% if user_signed_in? %>
+			<%= link_to new_buy_post_path, class: "buy_post_new_link" do %>
+				<div class="buy_post_new_btn">
+					<div class="text-center buy_post_new_btn_con">
+						<h4 class="">投稿</h4>
+						<i class="far fa-clipboard index-item fa-4x"></i>
+					</div>
 				</div>
-			</div>
+			<% end %>
+		<% else %>
+			<%= link_to new_user_session_path, class: "buy_post_new_link" do %>
+				<div class="buy_post_new_btn">
+					<div class="text-center buy_post_new_btn_con">
+						<h4 class="">投稿</h4>
+						<i class="far fa-clipboard index-item fa-4x"></i>
+					</div>
+				</div>
+			<% end %>
 		<% end %>
 
 		<div class="row justify-content-center">

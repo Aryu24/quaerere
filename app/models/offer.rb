@@ -1,6 +1,6 @@
 class Offer < ApplicationRecord
 
-  validates :price, :image, :condition, :comment, :public_status, presence: true
+  validates :title, :price, :image, :condition, :comment, :public_status, presence: true
 
   belongs_to :user
   belongs_to :buy_post

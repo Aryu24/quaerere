@@ -1,11 +1,13 @@
 <div class="container">
+
+	<%= render "devise/shared/error_messages", resource: resource %>
+
 	<div class="row justify-content-center">
 		<div class="col-md-8 mx-auto sign-up-box">
 
 	    	<h3 class="text-center title">住所を登録</h3>
 	    	<div class="form-group">
 		        <%= form_for @user, url: user_registration_path do |f| %>
-					<%= render "devise/shared/error_messages", resource: resource %>
 					<%= f.hidden_field :nick_name %>
 					<%= f.hidden_field :last_name %>
 					<%= f.hidden_field :first_name %>

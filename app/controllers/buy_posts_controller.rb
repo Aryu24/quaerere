@@ -1,4 +1,11 @@
 class BuyPostsController < ApplicationController
+	before_action :authenticate_user!, only: [:new, :edit, :destroy]
+	before_action :correct_user, only: [:edit, :destroy]
+
+	def correct_user
+		@buy_post = BuyPost.find(params[:id])
+		redirect_to root_path unless @buy_post.user == current_user
+	end
 
 	def index
 		@search = BuyPost.ransack(params[:q])
