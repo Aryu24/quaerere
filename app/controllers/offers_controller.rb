@@ -10,7 +10,9 @@ class OffersController < ApplicationController
 
   def show_correct_user
     @offer = Offer.find(params[:id])
-    redirect_to root_path unless @offer.user == current_user || @offer.buy_post.user == current_user
+    if @offer.public_status == "募集人にのみ公開"
+      redirect_to root_path unless @offer.user == current_user || @offer.buy_post.user == current_user
+    end
   end
 
   def new
