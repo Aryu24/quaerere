@@ -9,6 +9,7 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css?family=M+PLUS+1p:300&display=swap&subset=japanese" rel="stylesheet">
   </head>
 
   <body class='<%= "#{controller.controller_name}" %>'>
@@ -17,7 +18,7 @@
         <div class="row align-items-center">
           <div class="col-md-3">
               <span class="">
-                <%= link_to image_tag("quaerere_logo.png", size: '180x55'), root_path %>
+                <%= link_to image_tag("quaerere_logo1225.png", size: '180x52'), root_path %>
               </span>
           </div>
           <div class="col-md-9">
@@ -54,7 +55,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-3">
-            <%= image_tag 'quaerere_logo.png', :size => '140x45', class: "footer-logo" %>
+            <%= image_tag 'quaerere_footer.png', :size => '140x45', class: "footer-logo" %>
           </div>
           <div class="col-md-6 text-center">
             <span class="">&copy;Quaerere, Inc.</span>

@@ -44,6 +44,12 @@
 	.form_title{
 		margin-bottom:3px;
 	}
+	.buy_posts_table .bpti{
+		width: 15%;
+	}
+	.buy_posts_table .bptt{
+		width: 45%;
+	}
 
 	//プロフィール編集ページ
 	.profile-edit img{
@@ -97,5 +103,11 @@
 	}
 	.buy_post_text{
 		padding: 0px 10px;
+	}
+	.budget{
+		width: 100%;
+		border-top: 1px solid #C0C0C0;
+		position: absolute;
+		bottom: 5px;
 	}
 }
