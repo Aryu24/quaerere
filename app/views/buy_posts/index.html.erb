@@ -1,11 +1,54 @@
-<div class="container">
-	<div class="buy_post_index">
+<div class="jumbotron main_visual">
+	<div class="container text-center" id="main_visual">
+      <h1>
+      	欲しいものを募集したり<br>
+      募集している人にオファーしてみよう！
+  	  </h1>
+      <a data-toggle="modal" data-target="#modal1" class="what yubi">クアレレって？</a>
+      	<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="label1">クアレレ(quaerere)って？</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						欲しかったアイテムが販売終了、生産終了してしまい<br>
+						もう探してもどこにも売ってない・・・<br>
+						だれか譲ってくれる人いないかな・・・？<br>
+						<br>
+						または、<br>
+						使わなくなってしまったアイテム<br>
+						だれか欲しい人いるかな・・・？<br>
+						<br>
+						そう思ったことはありませんか？？<br>
+						<br>
+						クアレレはそんな時のために生まれました！<br>
+						クアレレはラテン語の quaerere = 探し求める に由来します。<br>
+						<br>
+						欲しいものを投稿 or 売りたいものをオファーして<br>
+						募集している人に譲ったり、<br>
+						欲しかったアイテムを手に入れましょう！<br>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+</div>
+
+<div class="container ">
+	<div class="buy_post_index top_margin">
 
 		<% if user_signed_in? %>
 			<%= link_to new_buy_post_path, class: "buy_post_new_link" do %>
 				<div class="buy_post_new_btn">
 					<div class="text-center buy_post_new_btn_con">
-						<h4 class="">投稿</h4>
+						<h4 class="">募集</h4>
 						<i class="far fa-clipboard index-item fa-4x"></i>
 					</div>
 				</div>
@@ -14,7 +57,7 @@
 			<%= link_to new_user_session_path, class: "buy_post_new_link" do %>
 				<div class="buy_post_new_btn">
 					<div class="text-center buy_post_new_btn_con">
-						<h4 class="">投稿</h4>
+						<h4 class="">募集</h4>
 						<i class="far fa-clipboard index-item fa-4x"></i>
 					</div>
 				</div>
@@ -22,7 +65,7 @@
 		<% end %>
 
 		<div class="row justify-content-center">
-			<div class="col-md-4 search_box">
+			<div class="col-md-10 search_box text-center">
 				<%= search_form_for(@search, url: root_path) do |f| %>
 					<%= f.search_field :title_or_comment_or_brand_cont, :placeholder => "検索ワードを入力", class: "form-control d-inline", style:"width:280px" %>
 					<%= f.submit "検索", class: "btn btn-primary mb-1" %>

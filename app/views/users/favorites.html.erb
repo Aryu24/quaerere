@@ -11,11 +11,11 @@
 				</thead>
 				<% if @favorites.present? %>
 					<% @favorites.each do |favorite| %>
-						<tr data-href="<%= buy_post_path(favorite.buy_post.id) %>" class="yubi">
-							<td class="text-center">
+						<tr data-href="<%= buy_post_path(favorite.buy_post.id) %>" class="yubi favorites_table">
+							<td class="text-center fti">
 								<%= attachment_image_tag favorite.buy_post, :image, :fill, 70, 70, format:'jpeg', fallback: "no_image.jpg", size: '70x70' %>
 							</td>
-							<td class="text-center">
+							<td class="text-center ftt">
 								<span>
 									<%= favorite.buy_post.title %>
 								</span>

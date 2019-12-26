@@ -3,6 +3,13 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .buy_posts{
+
+	header{
+		margin-bottom: 0px;
+	}
+	.top_margin{
+		margin-top: 30px;
+	}
 	.a-none a{
 		color: #000;
 	}
@@ -19,6 +26,31 @@
 	}
 
 	//・index(一覧)ページ
+	.main_visual{
+		background-image: image-url("main_visual.png");
+		background-size:cover;
+	}
+	#main_visual{
+		padding-bottom: 0px
+	}
+	.jumbotron .container{
+		width: 90%;
+	}
+	.jumbotron h1{
+		font-weight: 900;
+		font-size: 50px;
+		color: #444444;
+		text-shadow:1px 1px 0 #FFF, -1px -1px 0 #FFF,
+              -1px 1px 0 #FFF, 1px -1px 0 #FFF,
+              0px 1px 0 #FFF,  0-1px 0 #FFF,
+              -1px 0 0 #FFF, 1px 0 0 #FFF;
+	}
+	.what{
+		border-bottom: 1px solid #444444;
+	}
+	.what:hover{
+		border-bottom: none;
+	}
 	.buy_post_new_link{
 		position: fixed;
 		bottom: 40px;

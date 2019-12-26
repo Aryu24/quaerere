@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   	get 'users/sign_up/registration_complete' => 'users/registrations#registration_complete', as: 'new_user_registration_complete'
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :users, only: [:show, :edit, :update]
+  resources :users, only: [:index, :show, :edit, :update]
 
   get 'users/:id/mypage' => 'users#mypage', as: "user_mypage"
   get 'users/:id/favorites' => 'users#favorites', as: "user_favorites"
@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   	resource :favorites, only: [:create, :destroy]
   end
 
-  resources :offers, only: [:new, :create, :show, :edit, :update, :destroy], path: '/buy_posts/:id/offers/'
+  resources :offers, only: [:index, :new, :create, :show, :edit, :update, :destroy], path: '/buy_posts/:id/offers/'
   resources :offer_comments, only: [:create, :destroy], path: '/buy_posts/:id/offers/:id/offer_comment'
   resources :trades, only: [:create, :show], path: '/buy_posts/:id/offers/:id/trades/'
   resources :trade_messages, only: [:create, :destroy], path: '/buy_posts/:id/offers/:id/trades/:id/trade_messages'

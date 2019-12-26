@@ -3,6 +3,10 @@ class OffersController < ApplicationController
   before_action :correct_user, only: [:edit]
   before_action :show_correct_user, only: [:show]
 
+  def index
+    redirect_to root_path
+  end
+
   def correct_user
     @offer = Offer.find(params[:id])
     redirect_to root_path unless @offer.user == current_user

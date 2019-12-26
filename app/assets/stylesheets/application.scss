@@ -69,6 +69,13 @@ body{
 	box-sizing: border-box; /*全て含めてmin-height:100vhに*/
 	background-color: #EEEEEE;
 }
+#about{
+	color:#FFF;
+	border-bottom: 1px solid #FFF;
+}
+#about:hover{
+	border-bottom: none;
+}
 footer{
 	width: 100%;
 	position: absolute;

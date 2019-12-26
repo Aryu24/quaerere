@@ -36,6 +36,12 @@
 		margin:20px;
 		color: #888888
 	}
+	.favorites_table .fti{
+		width: 20%;
+	}
+	.favorites_table .ftt{
+		width: 45%;
+	}
 
 	//投稿一覧ページ
 	.field{
@@ -48,6 +54,14 @@
 		width: 15%;
 	}
 	.buy_posts_table .bptt{
+		width: 45%;
+	}
+
+	//オファー一覧ページ
+	.offers_table .oti{
+		width: 12%;
+	}
+	.offers_table .ott{
 		width: 45%;
 	}
 
