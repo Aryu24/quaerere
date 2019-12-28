@@ -1,6 +1,10 @@
 class BuyPost < ApplicationRecord
 
   validates :title, :category, :brand, :maximum_price, :condition, :comment, presence: true
+  validates :title, length: { in:1..50}
+  validates :brand, length: { in:1..30}
+  validates :maximum_price, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 9999999}
+  validates :comment, length: { in:1..800}
 
   belongs_to :user
   has_many :favorites, dependent: :destroy

@@ -30,7 +30,12 @@
 						</div>
 						<div class="off-list">
 							<span>オファー価格</span><br>
-							<%= f.number_field :price, autofocus: true, placeholder: "価格を入力", required: :true, class: "form-control" %>
+							<div class="input-group">
+								<div class="input-group-prepend">
+		  							<sapn class="input-group-text">¥</sapn>
+								</div>
+								<%= f.number_field :price, autofocus: true, placeholder: "価格を入力", required: :true, class: "form-control" %>
+							</div>
 						</div>
 						<div class="off-list">
 							<span>状態</span><br>
@@ -38,7 +43,7 @@
 						</div>
 						<div class="off-list">
 							<span>オファー内容の説明</span><br>
-							<%= f.text_area :comment, autofocus: true, placeholder: "説明文を入力", required: :true, class: "form-control" %>
+							<%= f.text_area :comment, autofocus: true, placeholder: "説明文を入力", required: :true, class: "form-control discription" %>
 						</div>
 						<div class="off-list">
 							<span>公開する範囲</span><br>
@@ -53,3 +58,14 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	$(function() {
+	  var $textarea = $('.discription');
+	  var lineHeight = parseInt($textarea.css('lineHeight'));
+	  $textarea.on('input', function(e) {
+	    var lines = ($(this).val() + '\n').match(/\n/g).length;
+	    $(this).height(lineHeight * lines);
+	  });
+	});
+</script>

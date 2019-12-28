@@ -4,13 +4,9 @@ ja:
       offer:
       buy_post:
       user:
-      registration_addresses:
-      product:
-      product/discs: 収録内容(ディスク)
-      product/discs/songs: 収録内容(曲)
     attributes:
       offer:
-        title: タイトル
+        title: オファータイトル
         price: オファー価格
         image: 画像
         condition: 状態
@@ -40,26 +36,6 @@ ja:
         address_building: 建物名
         image_id: プロフィール画像
         introduction: 自己紹介文
-      registration_addresses:
-        name: 送付先氏名
-        phone_number: 送付先電話番号
-        postal_code: 送付先郵便番号
-        address: 送付先住所
-      product:
-        title: 商品名
-        artist: アーティスト名
-        record_label: レーベル名
-        category: ジャンル
-        format: フォーマット
-        price: 価格
-        discs: 収録内容(ディスク)
-      product/discs:
-        number: ディスク番号
-        songs: 収録内容(曲)
-      product/discs/songs:
-        number: 曲順
-        title: 曲名
-        recording_time_seconds: 収録時間
   devise:
     confirmations:
       confirmed: 'アカウントを登録しました。'
@@ -136,12 +112,12 @@ ja:
       equal_to: は%{count}にしてください
       even: は偶数にしてください
       exclusion: は予約されています
-      greater_than: は%{count}より大きい値にしてください
+      greater_than: は¥%{count}より大きい値にしてください
       greater_than_or_equal_to: は%{count}以上の値にしてください
       inclusion: は一覧にありません
       invalid: は不正な値です
       less_than: は%{count}より小さい値にしてください
-      less_than_or_equal_to: は%{count}以下の値にしてください
+      less_than_or_equal_to: は¥%{count}以下の値にしてください
       model_invalid: 'バリデーションに失敗しました: %{errors}'
       not_a_number: は数値で入力してください
       not_an_integer: は整数で入力してください

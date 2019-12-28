@@ -1,6 +1,9 @@
 class Offer < ApplicationRecord
 
   validates :title, :price, :image, :condition, :comment, :public_status, presence: true
+  validates :title, length: { in:1..50}
+  validates :price, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 9999999}
+  validates :comment, length: { in:1..800}
 
   belongs_to :user
   belongs_to :buy_post
