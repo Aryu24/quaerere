@@ -153,15 +153,15 @@
 							<% @buy_post.offers.each do |offer| %>
 								<% if @buy_post.user == current_user || offer.user == current_user || offer.public_status == "全体に公開" %> <!--投稿ユーザーorオファーユーザーor全体に公開-->
 									<tr data-href="<%= offer_path(offer) %>" class="yubi">
-										<td><%= offer.title %></td>
-										<td></td>
-										<td><%= offer.user.nick_name %></td>
+										<td class="offer-title"><%= offer.title %></td>
+										<td class="offer-status"></td>
+										<td class="offer-user"><%= offer.user.nick_name %></td>
 									</tr>
 								<% else %>
 									<tr>
-										<td><%= offer.title %></td>
-										<td><button class="btn btn-outline-secondary btn-sm" disabled>非公開</button></td>
-										<td><%= offer.user.nick_name %></td>
+										<td class="offer-title"><%= offer.title %></td>
+										<td class="offer-status"><button class="btn btn-outline-secondary btn-sm" disabled>非公開</button></td>
+										<td class="offer-user"><%= offer.user.nick_name %></td>
 									</tr>
 								<% end %>
 							<% end %>

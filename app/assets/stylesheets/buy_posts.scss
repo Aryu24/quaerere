@@ -112,6 +112,12 @@
 	.buy_post_text{
 		padding: 0px 10px;
 	}
+	.buy_post_text span{
+		display: -webkit-box;
+	    -webkit-box-orient: vertical;
+	    -webkit-line-clamp: 2;
+	    overflow: hidden;
+	}
 	.budget{
 		width: 100%;
 		border-top: 1px solid #C0C0C0;
@@ -141,6 +147,23 @@
 	}
 	.buy_post_detail .title{
 		margin-bottom: 15px;
+	}
+	.offer-title{
+		width: 55%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		max-width: 0;
+	}
+	.offer-status{
+		width: 20%;
+	}
+	.offer-user{
+		width: 25%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		max-width: 0;
 	}
 
 	//・new(新規投稿)ページ

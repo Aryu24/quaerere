@@ -89,7 +89,7 @@
 								<%= attachment_image_tag buy_post, :image, format:'jpeg', fallback: "no_image.jpg" %>
 							</div>
 							<div class="buy_post_text">
-								<%= truncate(buy_post.title, length: 30) %>
+								<span><%= buy_post.title %></span>
 							</div>
 							<div class="buy_post_text budget">
 								<span>予算：¥

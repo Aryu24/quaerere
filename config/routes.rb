@@ -27,9 +27,9 @@ Rails.application.routes.draw do
   end
 
   resources :offers, only: [:index, :new, :create, :show, :edit, :update, :destroy], path: '/buy_posts/:id/offers/'
-  resources :offer_comments, only: [:create, :destroy], path: '/buy_posts/:id/offers/:id/offer_comment'
+  resources :offer_comments, only: [:index, :create, :destroy], path: '/buy_posts/:id/offers/:id/offer_comment'
   resources :trades, only: [:create, :show], path: '/buy_posts/:id/offers/:id/trades/'
-  resources :trade_messages, only: [:create, :destroy], path: '/buy_posts/:id/offers/:id/trades/:id/trade_messages'
+  resources :trade_messages, only: [:index, :create, :destroy], path: '/buy_posts/:id/offers/:id/trades/:id/trade_messages'
   resources :trade_users, only: [:update], path: '/buy_posts/:id/offers/:id/trades/:id/trade_users'
 
 end

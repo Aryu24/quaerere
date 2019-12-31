@@ -36,6 +36,8 @@ ja:
         address_building: 建物名
         image_id: プロフィール画像
         introduction: 自己紹介文
+      offer_comment:
+        comment: コメント
   devise:
     confirmations:
       confirmed: 'アカウントを登録しました。'

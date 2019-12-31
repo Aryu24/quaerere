@@ -18,8 +18,13 @@
 					<%= f.hidden_field :password %>
 
 					<div class="field">
-						<span>郵便番号(ハイフンなし)</span><br />
-						<%= f.text_field :postcode, autofocus: true, autocomplete: "postcode", placeholder: "7桁の郵便番号をハイフンなしで入力", class: "form-control" %>
+						<span>郵便番号(半角、ハイフンなし)</span><br />
+						<div class="input-group">
+							<div class="input-group-prepend">
+                				<sapn class="input-group-text">〒</sapn>
+              				</div>
+							<%= f.text_field :postcode, autofocus: true, autocomplete: "postcode", placeholder: "7桁の郵便番号をハイフンなしで入力", class: "form-control" %>
+						</div>
 					</div>
 
 					<div class="">

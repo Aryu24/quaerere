@@ -43,8 +43,13 @@
           </div>
 
           <div class="field">
-            <div class="form_title">郵便番号(ハイフンなし)</div>
-            <%= f.text_field :postcode, autofocus: true, autocomplete: "postcode", placeholder: "7桁の郵便番号をハイフンなしで入力",required: :true, class: "form-control" %>
+            <div class="form_title">郵便番号(半角、ハイフンなし)</div>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <sapn class="input-group-text">〒</sapn>
+              </div>
+              <%= f.text_field :postcode, autofocus: true, autocomplete: "postcode", placeholder: "7桁の郵便番号をハイフンなしで入力",required: :true, class: "form-control" %>
+            </div>
           </div>
 
           <div class="">

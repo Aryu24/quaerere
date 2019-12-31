@@ -13,6 +13,19 @@
 	<% end %>
 
 	<div class="row">
+
+		<% if @offer_comment.errors.any? %>
+			<div class="col-md-10 mx-auto">
+				<div id="error_explanation" class="alert alert-danger">
+					<ul>
+						<% @offer_comment.errors.full_messages.each do |message| %>
+				 			<li><%= message %></li>
+						<% end %>
+					</ul>
+				</div>
+			</div>
+		<% end %>
+
 		<div class="col-md-10 mx-auto">
 			<div class="offer_detail">
 				<h3 class="text-center title">
@@ -141,7 +154,7 @@
 						<% if @offer.buy_post.status == "募集中" %>
 							<div class="offer_comment_post">
 								<%= form_for @offer_comment, url: offer_comments_path do |f| %>
-									<%= f.text_area :comment, placeholder: "コメントを入力", required: :true, class: "form-control" %>
+									<%= f.text_area :comment, placeholder: "コメントを入力", required: :true, class: "form-control comment-form" %>
 									<div class="text-right">
 										<%= f.submit "送信", class: "btn btn-success" %>
 									</div>
@@ -162,3 +175,14 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	$(function() {
+	  var $textarea = $('.comment-form');
+	  var lineHeight = parseInt($textarea.css('lineHeight'));
+	  $textarea.on('input', function(e) {
+	    var lines = ($(this).val() + '\n').match(/\n/g).length;
+	    $(this).height(lineHeight * lines);
+	  });
+	});
+</script>

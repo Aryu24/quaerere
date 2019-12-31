@@ -47,23 +47,49 @@
 		</div>
 		<div class="col-md-7">
 			<div class="trade_comment_box">
-				<div class="trade_comment_detail">
+				<div class="trade_comment_detail clearfix">
 					<% @trade.trade_messages.each do |message| %>
-						<div>
-							<%= attachment_image_tag message.user, :image, format:'jpeg', fallback: "no_image.jpg" %>
-							<%= message.user.nick_name %>
-						</div>
-						<div class="trade_comment">
-							<%= simple_format(message.message) %>
-						</div>
-						<div class="text-right trade_comment_time">
-							<%= simple_time(message.created_at) %>
-						</div>
+						<% if message.user == current_user %>
+							<div class="trade_comment_contents float-right">
+								<div class="text-right">
+									<%= attachment_image_tag message.user, :image, format:'jpeg', fallback: "no_image.jpg" %>
+									<%= message.user.nick_name %>
+								</div>
+								<div class="trade_comment">
+									<%= simple_format(message.message) %>
+								</div>
+								<div class="text-right trade_comment_time">
+									<%= simple_time(message.created_at) %>
+								</div>
+							</div>
+						<% else %>
+							<div class="trade_comment_contents float-left">
+								<div>
+									<%= attachment_image_tag message.user, :image, format:'jpeg', fallback: "no_image.jpg" %>
+									<%= message.user.nick_name %>
+								</div>
+								<div class="trade_comment">
+									<%= simple_format(message.message) %>
+								</div>
+								<div class="trade_comment_time">
+									<%= simple_time(message.created_at) %>
+								</div>
+							</div>
+						<% end %>
 					<% end %>
 				</div>
+				<% if @message.errors.any? %>
+					<div id="error_explanation" class="alert alert-danger">
+						<ul>
+							<% @message.errors.full_messages.each do |message| %>
+					 			<li><%= message %></li>
+							<% end %>
+						</ul>
+					</div>
+				<% end %>
 				<div class="trade_comment_post">
-					<%= form_for @message, url: trade_messages_path do |f| %>
-						<%= f.text_area :message, placeholder: "ここに取引メッセージを入力", required: :true, class: "form-control" %>
+					<%= form_for(@message, url: trade_messages_path) do |f| %>
+						<%= f.text_area :message, placeholder: "ここに取引メッセージを入力", required: :true, class: "form-control trade_message" %>
 						<div class="text-right">
 							<%= f.submit "送信", class: "btn btn-success" %>
 						</div>
@@ -133,3 +159,14 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	$(function() {
+	  var $textarea = $('.trade_message');
+	  var lineHeight = parseInt($textarea.css('lineHeight'));
+	  $textarea.on('input', function(e) {
+	    var lines = ($(this).val() + '\n').match(/\n/g).length;
+	    $(this).height(lineHeight * lines);
+	  });
+	});
+</script>

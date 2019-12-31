@@ -27,7 +27,7 @@
 		margin: 10px 0px;
 	}
 	.introduction{
-		margin: 20px 0px 20px 50px;
+		margin: 20px 10px 30px 10px;
 		font-size: 18px;
 	}
 
@@ -41,6 +41,13 @@
 	}
 	.favorites_table .ftt{
 		width: 45%;
+		height: 80px;
+	}
+	.ftt span{
+		display: -webkit-box;
+	    -webkit-box-orient: vertical;
+	    -webkit-line-clamp: 3;
+	    overflow: hidden;
 	}
 
 	//投稿一覧ページ
@@ -51,10 +58,16 @@
 		margin-bottom:3px;
 	}
 	.buy_posts_table .bpti{
-		width: 15%;
+		width: 13%;
 	}
 	.buy_posts_table .bptt{
 		width: 45%;
+	}
+	.bptt span{
+		display: -webkit-box;
+	    -webkit-box-orient: vertical;
+	    -webkit-line-clamp: 3;
+	    overflow: hidden;
 	}
 
 	//オファー一覧ページ
@@ -73,7 +86,10 @@
 		margin: 10px 0px 20px 0px;
 	}
 	.introduction-form{
-		height: 160px;
+		min-height: 300px;
+		max-height: 500px;
+		padding: 8px;
+		line-height: 20px;
 	}
 
 	//ユーザーshowページ
