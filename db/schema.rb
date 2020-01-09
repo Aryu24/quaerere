@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_20_044611) do
+ActiveRecord::Schema.define(version: 2020_01_06_171200) do
 
   create_table "buy_posts", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 2019_12_20_044611) do
     t.boolean "finish_status", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "side", null: false
   end
 
   create_table "trades", force: :cascade do |t|

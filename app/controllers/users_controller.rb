@@ -29,10 +29,46 @@ class UsersController < ApplicationController
 
   def buy_posts
     @user = current_user
+    trade_id =  TradeUser.where(user_id: current_user).where(side: "buy")
+    @trading = []
+    @end_trade = []
+    unless trade_id.nil? #ユーザーがTradeしているか？
+      trade_id.each do |f|
+        if f.trade.status == "取引完了"
+          @end_trade.push(f.trade)
+        else
+          @trading.push(f.trade)
+        end
+      end
+    end
   end
 
   def offers
     @user = current_user
+    @offers = []
+    trade_offers = []
+    @user.offers.each do |f|
+      if f.trade.nil?
+        @offers.push(f) #@offersにtradeがないオファーを格納
+      else
+        trade_offers.push(f) #trade_offersにtradeがあるオファーを格納
+      end
+    end
+    unless trade_offers.nil? #trade_offersがnilでなければ
+      @trading_offers = []
+      @end_trade_offers = []
+      trade_offers.each do |f| #tradeがあるofferから完了or未完了を選別
+        if f.trade.status != "取引完了"
+          @trading_offers.push(f) #取引中のものを@trading_offersに
+        else
+          @end_trade_offers.push(f) #取引完了のものを@end_trade_offersに
+        end
+      end
+    end
+  end
+
+  def trades
+    @trade_users = TradeUser.where(user_id: current_user.id)
   end
 
   def edit

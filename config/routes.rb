@@ -16,11 +16,10 @@ Rails.application.routes.draw do
 
   get 'users/:id/mypage' => 'users#mypage', as: "user_mypage"
   get 'users/:id/favorites' => 'users#favorites', as: "user_favorites"
-  get 'users/:id/profile_edit' => 'users#profile_edit', as: "user_profile_edit"
   get 'users/:id/buy_posts' => 'users#buy_posts', as: "user_buy_posts"
   get 'users/:id/offers' => 'users#offers', as: "user_offers"
-
-
+  get 'users/:id/trades' => 'users#trades', as: "user_trades"
+  get 'users/:id/profile_edit' => 'users#profile_edit', as: "user_profile_edit"
 
   resources :buy_posts, only: [:index, :new, :create, :show, :edit, :update, :destroy] do
   	resource :favorites, only: [:create, :destroy]

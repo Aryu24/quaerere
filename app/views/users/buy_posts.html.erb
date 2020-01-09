@@ -2,56 +2,175 @@
 	<div class="row">
 		<div class="col-md-10 mx-auto user-content-rb">
 			<h3 class="text-center title">投稿した募集一覧</h3>
-			<table class="table table-hover">
-				<thead>
-					<th class="text-center"></th>
-					<th class="text-center">タイトル</th>
-					<th class="text-center">上限金額</th>
-					<th class="text-center">オファー数</th>
-					<th class="text-center">ステータス</th>
-				</thead>
-				<% if @user.buy_posts.present? %>
-					<% @user.buy_posts.each do |buy_post| %>
-						<tr data-href="<%= buy_post_path(buy_post) %>" class="yubi buy_posts_table">
-							<td class="text-center bpti">
-								<%= attachment_image_tag buy_post, :image, :fill, 70, 70, format:'jpeg', fallback: "no_image.jpg", size: '70x70' %>
-							</td>
-							<td class="text-center bptt">
-								<span>
-									<%= buy_post.title %>
-								</span>
-							</td>
-							<td class="text-center">
-								<span>
-									¥<%= converting_comma(buy_post.maximum_price) %>まで
-								</span>
-							</td>
-							<td class="text-center">
-								<span>
-									<%= buy_post.offers.count %>
-								</span>
-							</td>
-							<td class="text-center">
-								<% if buy_post.status == "募集中" %>
-									<span class="btn btn-success btn-sm">
-										<%= buy_post.status %>
-									</span>
-								<% else %>
-									<span class="btn btn-danger btn-sm">
-										<%= buy_post.status %>
-									</span>
+
+			<div class="wrap">
+				<ul id="tab-menu" class="clearfix">
+					<li><a href="#tab1" class="active">募集中</a></li>
+					<li><a href="#tab2" class="">取引中</a></li>
+					<li><a href="#tab3" class="">取引完了</a></li>
+				</ul>
+
+				<div id="tab-contents" class="clearfix">
+					<div id="tab1" class="tab">
+						<table class="table table-hover buy_posts_table">
+							<thead>
+								<th class="text-center bpti"></th>
+								<th class="text-center bptt">タイトル</th>
+								<th class="text-center">上限金額</th>
+								<th class="text-center bpto">オファー数</th>
+								<th class="text-center bpts">ステータス</th>
+							</thead>
+							<% if @user.buy_posts.where(status: "募集中").present? %>
+								<% @user.buy_posts.where(status: "募集中").each do |buy_post| %>
+									<tr data-href="<%= buy_post_path(buy_post) %>" class="yubi">
+										<td class="text-center">
+											<%= attachment_image_tag buy_post, :image, :fill, 70, 70, format:'jpeg', fallback: "no_image.jpg", size: '70x70' %>
+										</td>
+										<td class="text-center align-middle">
+											<span>
+												<%= buy_post.title %>
+											</span>
+										</td>
+										<td class="text-center align-middle">
+											<span>
+												¥<%= converting_comma(buy_post.maximum_price) %>まで
+											</span>
+										</td>
+										<td class="text-center align-middle">
+											<span>
+												<%= buy_post.offers.count %>
+											</span>
+										</td>
+										<td class="text-center align-middle">
+											<span class="btn btn-success btn-sm">
+												<%= buy_post.status %>
+											</span>
+										</td>
+									</tr>
 								<% end %>
-							</td>
-						</tr>
-					<% end %>
-				<% else %>
-					<tr>
-						<td colspan="4" class="text-center">
-							<span>投稿した募集はありません</span>
-						</td>
-					</tr>
-				<% end %>
-			</table>
+							<% else %>
+								<tr>
+									<td colspan="5" class="text-center align-middle each-nil">
+										<span>募集中の投稿はありません</span>
+									</td>
+								</tr>
+							<% end %>
+						</table>
+					</div>
+
+					<div id="tab2" class="tab">
+						<table class="table table-hover buy_posts_table">
+							<thead>
+								<th class="text-center bpti"></th>
+								<th class="text-center bptt">タイトル</th>
+								<th class="text-center">上限金額</th>
+								<th class="text-center bpto">オファー数</th>
+								<th class="text-center bpts">ステータス</th>
+							</thead>
+							<% if @trading.present? %>
+								<% @trading.each do |trade| %>
+									<tr data-href="<%= buy_post_path(trade.offer.buy_post) %>" class="yubi">
+										<td class="text-center">
+											<%= attachment_image_tag trade.offer.buy_post, :image, :fill, 70, 70, format:'jpeg', fallback: "no_image.jpg", size: '70x70' %>
+										</td>
+										<td class="text-center align-middle">
+											<span>
+												<%= trade.offer.buy_post.title %>
+											</span>
+										</td>
+										<td class="text-center align-middle">
+											<span>
+												¥<%= converting_comma(trade.offer.buy_post.maximum_price) %>まで
+											</span>
+										</td>
+										<td class="text-center align-middle">
+											<span>
+												<%= trade.offer.buy_post.offers.count %>
+											</span>
+										</td>
+										<td class="text-center align-middle">
+											<% if trade.status == "未完了" %>
+												<span class="btn btn-warning btn-sm">
+													取引中
+												</span>
+											<% else %>
+												<span class="btn btn-danger btn-sm">
+													<%= trade.status %>
+												</span>
+											<% end %>
+										</td>
+									</tr>
+								<% end %>
+							<% else %>
+								<tr>
+									<td colspan="5" class="text-center each-nil align-middle">
+										<span>取引中の投稿はありません</span>
+									</td>
+								</tr>
+							<% end %>
+						</table>
+					</div>
+
+					<div id="tab3" class="tab">
+						<table class="table table-hover buy_posts_table">
+							<thead>
+								<th class="text-center bpti"></th>
+								<th class="text-center bptt">タイトル</th>
+								<th class="text-center">上限金額</th>
+								<th class="text-center bpto">オファー数</th>
+								<th class="text-center bpts">ステータス</th>
+							</thead>
+							<% if @end_trade.present? %>
+								<% @end_trade.each do |trade| %>
+									<tr data-href="<%= buy_post_path(trade.offer.buy_post) %>" class="yubi">
+										<td class="text-center">
+											<%= attachment_image_tag trade.offer.buy_post, :image, :fill, 70, 70, format:'jpeg', fallback: "no_image.jpg", size: '70x70' %>
+										</td>
+										<td class="text-center align-middle">
+											<span>
+												<%= trade.offer.buy_post.title %>
+											</span>
+										</td>
+										<td class="text-center align-middle">
+											<span>
+												¥<%= converting_comma(trade.offer.buy_post.maximum_price) %>まで
+											</span>
+										</td>
+										<td class="text-center align-middle">
+											<span>
+												<%= trade.offer.buy_post.offers.count %>
+											</span>
+										</td>
+										<td class="text-center align-middle">
+											<span class="btn btn-secondary btn-sm">
+												<%= trade.status %>
+											</span>
+										</td>
+									</tr>
+								<% end %>
+							<% else %>
+								<tr>
+									<td colspan="5" class="text-center each-nil align-middle">
+										<span>取引が完了した投稿はありません</span>
+									</td>
+								</tr>
+							<% end %>
+						</table>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
+
+<script>
+$('#tab-contents .tab[id != "tab1"]').hide();
+
+$('#tab-menu a').on('click', function() {
+  $("#tab-contents .tab").hide();
+  $("#tab-menu .active").removeClass("active");
+  $(this).addClass("active");
+  $($(this).attr("href")).show();
+  return false;
+});
+</script>

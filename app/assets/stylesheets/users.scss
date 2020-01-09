@@ -4,6 +4,9 @@
 
 .users{
 
+	.main ul{
+		margin-bottom: 0px;
+	}
 	.user-content-l{
 		background-color: #FFF;
 	}
@@ -50,18 +53,26 @@
 	    overflow: hidden;
 	}
 
-	//投稿一覧ページ
+	//基本情報変更ページ
 	.field{
 		margin-bottom: 20px;
 	}
 	.form_title{
 		margin-bottom:3px;
 	}
+
+	//投稿一覧ページ
 	.buy_posts_table .bpti{
 		width: 13%;
 	}
 	.buy_posts_table .bptt{
 		width: 45%;
+	}
+	.buy_posts_table .bpto{
+		width: 13%;
+	}
+	.buy_posts_table .bpts{
+		width: 13%;
 	}
 	.bptt span{
 		display: -webkit-box;
@@ -70,12 +81,51 @@
 	    overflow: hidden;
 	}
 
+	//タブメニュー
+	.wrap{
+		border: 1px solid #dee2e6;
+	}
+	.clearfix:after{
+		content:"";
+		display: block;
+	}
+	#tab-menu li {
+		float: left;
+		list-style-type: none;
+		width: calc(100% / 3);
+	}
+	#tab-menu a {
+		color: #fff;
+		text-decoration: none;
+		display: block;
+		padding: 20px;
+		text-align: center;
+		background: #AAAAAA;
+		border-bottom: none;
+	}
+	#tab-menu .active {
+		background: #fff;
+		color: #000;
+	}
+	#tab-contents .table{
+		margin-bottom: 0px;
+	}
+
 	//オファー一覧ページ
+	.offers_table th{
+		height: 74px;
+	}
 	.offers_table .oti{
 		width: 12%;
 	}
 	.offers_table .ott{
 		width: 45%;
+	}
+	.offers_table .ots{
+		width: 21%;
+	}
+	.each-nil{
+		height: 95px;
 	}
 
 	//プロフィール編集ページ

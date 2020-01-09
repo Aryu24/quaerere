@@ -2,66 +2,163 @@
 	<div class="row">
 		<div class="col-md-10 mx-auto user-content-rb">
 			<h3 class="text-center title">投稿したオファー</h3>
-			<table class="table table-hover offers_table">
-				<thead>
-					<th class="text-center oti"></th>
-					<th class="text-center ott align-middle">タイトル</th>
-					<th class="text-center align-middle">オファー金額</th>
-					<th class="text-center align-middle">ステータス</th>
-					<th class="text-center align-middle">オファー先の<br>ステータス</th>
-				</thead>
-				<% if @user.offers.present? %>
-					<% @user.offers.each do |offer| %>
-						<tr data-href="<%= offer_path(offer) %>" class="yubi">
-							<td class="text-center">
-								<%= attachment_image_tag offer, :image, :fill, 70, 70, format:'jpeg', fallback: "no_image.jpg", size: '70x70' %>
-							</td>
-							<td class="text-center">
-								<span>
-									<%= offer.title %>
-								</span>
-							</td>
-							<td class="text-center">
-								<span>
-									¥<%= converting_comma(offer.price) %>
-								</span>
-							</td>
-							<td class="text-center">
-								<% if offer.trade.nil? %>
-									なし
-								<% else %>
-									<% if offer.trade.status == "取引完了" %>
-										<span class="btn btn-danger btn-sm">
-											<%= offer.trade.status %>
-										</span>
-									<% else %>
-										<span class="btn btn-success btn-sm">
-											取引中
-										</span>
+
+			<div class="wrap">
+				<ul id="tab-menu" class="clearfix">
+					<li><a href="#tab1" class="active">オファー中</a></li>
+					<li><a href="#tab2" class="">取引中</a></li>
+					<li><a href="#tab3" class="">取引完了</a></li>
+				</ul>
+
+				<div id="tab-contents" class="clearfix">
+					<div id="tab1" class="tab">
+						<table class="table table-hover offers_table">
+							<thead>
+								<th class="text-center oti"></th>
+								<th class="text-center ott align-middle">タイトル</th>
+								<th class="text-center align-middle">オファー金額</th>
+								<th class="text-center ots align-middle">オファー先の<br>ステータス</th>
+							</thead>
+							<% if @offers.present? %>
+								<% @offers.each do |offer| %>
+									<tr data-href="<%= offer_path(offer) %>" class="yubi">
+										<td class="text-center">
+											<%= attachment_image_tag offer, :image, :fill, 70, 70, format:'jpeg', fallback: "no_image.jpg", size: '70x70' %>
+										</td>
+										<td class="text-center align-middle">
+											<span>
+												<%= offer.title %>
+											</span>
+										</td>
+										<td class="text-center align-middle">
+											<span>
+												¥<%= converting_comma(offer.price) %>
+											</span>
+										</td>
+										<td class="text-center align-middle">
+											<% if offer.buy_post.status == "募集中" %>
+												<span class="btn btn-success btn-sm">
+													<%= offer.buy_post.status %>
+												</span>
+											<% else %>
+												<span class="btn btn-secondary btn-sm">
+													<%= offer.buy_post.status %>
+												</span>
+											<% end %>
+										</td>
+									</tr>
+								<% end %>
+							<% else %>
+								<tr>
+									<td colspan="4" class="text-center align-middle each-nil">
+										<span>オファーはありません</span>
+									</td>
+								</tr>
+							<% end %>
+						</table>
+					</div>
+					<div id="tab2" class="tab">
+						<table class="table table-hover offers_table">
+							<thead>
+								<th class="text-center oti"></th>
+								<th class="text-center ott align-middle">タイトル</th>
+								<th class="text-center align-middle">オファー金額</th>
+								<th class="text-center ots align-middle">ステータス</th>
+							</thead>
+
+							<% if @trading_offers.present? %>
+									<% @trading_offers.each do |offer| %>
+										<tr data-href="<%= offer_path(offer) %>" class="yubi">
+											<td class="text-center">
+												<%= attachment_image_tag offer, :image, :fill, 70, 70, format:'jpeg', fallback: "no_image.jpg", size: '70x70' %>
+											</td>
+											<td class="text-center align-middle">
+												<span>
+													<%= offer.title %>
+												</span>
+											</td>
+											<td class="text-center align-middle">
+												<span>
+													¥<%= converting_comma(offer.price) %>
+												</span>
+											</td>
+											<td class="text-center align-middle">
+												<% if offer.trade.status == "完了待ち" %>
+													<span class="btn btn-danger btn-sm">
+														<%= offer.trade.status %>
+													</span>
+												<% else %>
+													<span class="btn btn-warning btn-sm">
+														取引中
+													</span>
+												<% end %>
+											</td>
+										</tr>
 									<% end %>
-								<% end %>
-							</td>
-							<td class="text-center">
-								<% if offer.buy_post.status == "募集中" %>
-									<span class="btn btn-success btn-sm">
-										<%= offer.buy_post.status %>
-									</span>
-								<% else %>
-									<span class="btn btn-secondary btn-sm">
-										<%= offer.buy_post.status %>
-									</span>
-								<% end %>
-							</td>
-						</tr>
-					<% end %>
-				<% else %>
-					<tr>
-						<td colspan="4" class="text-center">
-							<span>投稿した募集はありません</span>
-						</td>
-					</tr>
-				<% end %>
-			</table>
+							<% else %>
+								<tr>
+									<td colspan="4" class="text-center align-middle each-nil">
+										<span>取引中のオファーはありません</span>
+									</td>
+								</tr>
+							<% end %>
+						</table>
+					</div>
+					<div id="tab3" class="tab">
+						<table class="table table-hover offers_table">
+							<thead>
+								<th class="text-center oti"></th>
+								<th class="text-center ott align-middle">タイトル</th>
+								<th class="text-center align-middle">オファー金額</th>
+								<th class="text-center ots align-middle">ステータス</th>
+							</thead>
+
+							<% if @end_trade_offers.present? %>
+									<% @end_trade_offers.each do |offer| %>
+										<tr data-href="<%= offer_path(offer) %>" class="yubi">
+											<td class="text-center">
+												<%= attachment_image_tag offer, :image, :fill, 70, 70, format:'jpeg', fallback: "no_image.jpg", size: '70x70' %>
+											</td>
+											<td class="text-center align-middle">
+												<span>
+													<%= offer.title %>
+												</span>
+											</td>
+											<td class="text-center align-middle">
+												<span>
+													¥<%= converting_comma(offer.price) %>
+												</span>
+											</td>
+											<td class="text-center align-middle">
+												<span class="btn btn-secondary btn-sm">
+													<%= offer.trade.status %>
+												</span>
+											</td>
+										</tr>
+									<% end %>
+							<% else %>
+								<tr>
+									<td colspan="4" class="text-center align-middle each-nil">
+										<span>取引が完了したオファーはありません</span>
+									</td>
+								</tr>
+							<% end %>
+						</table>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
+
+<script>
+$('#tab-contents .tab[id != "tab1"]').hide();
+
+$('#tab-menu a').on('click', function() {
+  $("#tab-contents .tab").hide();
+  $("#tab-menu .active").removeClass("active");
+  $(this).addClass("active");
+  $($(this).attr("href")).show();
+  return false;
+});
+</script>

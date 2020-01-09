@@ -14,12 +14,12 @@
 				<% if @trade.trade_users.find_by(finish_status: true).user_id == current_user.id %>
 					<h3 class="text-center">
 						完了ボタンを押しました。<br>
-						取引相手が完了ボタンを押すまで<br>
+						取引のお相手が完了ボタンを押すまで<br>
 						今しばらくお待ちください。
 					</h3>
 				<% else %>
 					<h3 class="text-center">
-						取引相手が完了ボタンを押しました。<br>
+						取引のお相手が完了ボタンを押しました。<br>
 						内容に問題がなければ完了ボタンを<br>
 						押して取引を完了してください。
 					</h3>

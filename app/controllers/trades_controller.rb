@@ -14,8 +14,8 @@ class TradesController < ApplicationController
 		@trade.offer_id = @offer.id
 		@trade.save
 
-		trade_user_buy = TradeUser.create(:trade_id => @trade.id, :user_id => @trade.offer.buy_post.user_id)
-		trade_user_sell = TradeUser.create(:trade_id => @trade.id, :user_id => @trade.offer.user_id)
+		TradeUser.create(:trade_id => @trade.id, :user_id => @trade.offer.buy_post.user_id, :side => "buy")
+		TradeUser.create(:trade_id => @trade.id, :user_id => @trade.offer.user_id, :side => "offer")
 
 		@buy_post = BuyPost.find(@offer.buy_post_id)
 		@buy_post.update(status: "募集終了")
