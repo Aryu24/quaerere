@@ -1,12 +1,11 @@
 class TradesController < ApplicationController
-
 	before_action :authenticate_user!
 	before_action :correct_user, only: [:show]
 
 	def correct_user
-  		@trade = Trade.find(params[:id])
-  		redirect_to root_path unless @trade.trade_users.where(user_id: current_user.id).exists?
-  	end
+		@trade = Trade.find(params[:id])
+		redirect_to root_path unless @trade.trade_users.where(user_id: current_user.id).exists?
+	end
 
 	def create
 		@trade = Trade.new
@@ -32,5 +31,4 @@ class TradesController < ApplicationController
 	def trade_params
 		params.require(:trade).permit(:status)
 	end
-
 end

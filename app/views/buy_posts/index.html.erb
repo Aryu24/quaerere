@@ -1,11 +1,11 @@
 <div class="jumbotron main_visual">
 	<div class="container text-center" id="main_visual">
-      <h1>
-      	欲しいものを募集したり<br>
-      募集している人にオファーしてみよう！
-  	  </h1>
-      <a data-toggle="modal" data-target="#modal1" class="what yubi">クアレレって？</a>
-      	<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
+		<h1>
+			欲しいものを募集したり<br>
+			募集している人にオファーしてみよう！
+		</h1>
+		<a data-toggle="modal" data-target="#modal1" class="what yubi">クアレレって？</a>
+		<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -38,7 +38,7 @@
 				</div>
 			</div>
 		</div>
-    </div>
+	</div>
 </div>
 
 <div class="container ">
@@ -79,24 +79,24 @@
 				<% @buy_posts.order(updated_at: :desc).each do |buy_post| %>
 					<div class="col-md-3">
 						<%= link_to buy_post_path(buy_post), data: {"turbolinks" => false} do %>
-						<div class="buy_post_card">
-							<div class="buy_post_i">
-								<% if buy_post.status == "募集終了" %>
-									<h2 class="buy-post-end text-center">
-										募集終了
-									</h2>
-								<% end %>
-								<%= attachment_image_tag buy_post, :image, format:'jpeg', fallback: "no_image.jpg" %>
+							<div class="buy_post_card">
+								<div class="buy_post_i">
+									<% if buy_post.status == "募集終了" %>
+										<h2 class="buy-post-end text-center">
+											募集終了
+										</h2>
+									<% end %>
+									<%= attachment_image_tag buy_post, :image, format:'jpeg', fallback: "no_image.jpg" %>
+								</div>
+								<div class="buy_post_text">
+									<span><%= buy_post.title %></span>
+								</div>
+								<div class="buy_post_text budget">
+									<span>予算：¥
+										<%= converting_comma(buy_post.maximum_price) %>
+									まで</span>
+								</div>
 							</div>
-							<div class="buy_post_text">
-								<span><%= buy_post.title %></span>
-							</div>
-							<div class="buy_post_text budget">
-								<span>予算：¥
-								<%= converting_comma(buy_post.maximum_price) %>
-								まで</span>
-							</div>
-						</div>
 						<% end %>
 					</div>
 				<% end %>
