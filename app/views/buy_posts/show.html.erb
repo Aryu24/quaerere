@@ -86,8 +86,30 @@
 								<p><%= @buy_post.user.prefecture_code %></p>
 							</td>
 						</tr>
+						<tr class="test">
+							<th class="">
+								<p>最終更新日（テスト）：</p>
+								<p>更新日時<%= simple_time(@buy_post.updated_at) %></p>
+								<p>現在時刻<%= simple_time(Time.zone.now) %></p>
+							</th>
+							<td class="">
+								<% if Time.zone.now - @buy_post.updated_at <= 86400 %>
+									<p>今日中だよ</p>
+									<p><%= ((Time.zone.now - @buy_post.updated_at)  / 3600).floor %>時間前</p>
+								<% elsif Time.zone.now - @buy_post.updated_at <= 2678400 %>
+									<p>１日以上たってるよ</p>
+									<p><%= ((Time.zone.now - @buy_post.updated_at)  / 86400).floor %>日前</p></p>
+								<% elsif Time.zone.now - @buy_post.updated_at <= 16070400 %>
+									<p>1ヶ月以上たってるよ</p>
+									<p><%= ((Time.zone.now - @buy_post.updated_at)  / 2678400).floor %>ヶ月以上前</p></p>
+								<% else %>
+									<p>半年以上前</p>
+								<% end %>
+							</td>
+						</tr>
 					</table>
 				</div>
+
 				<% if user_signed_in? %>
 					<% if @buy_post.favorited_by?(current_user) %>
 						<%= link_to buy_post_favorites_path(@buy_post), method: :delete do %>
@@ -104,6 +126,7 @@
 					<i class="fas fa-heart"></i>
 					<%= @buy_post.favorites.count %> いいね
 				<% end %>
+
 			</div>
 		</div>
 	</div>

@@ -13,6 +13,7 @@ module Quaerere
 
     #タイムゾーンを東京に
     config.time_zone = 'Asia/Tokyo'
+    config.active_record.default_timezone = :local
 
     #i18n
     config.i18n.default_locale = :ja

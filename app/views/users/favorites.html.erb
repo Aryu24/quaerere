@@ -5,9 +5,9 @@
 			<table class="table table-hover">
 				<thead>
 					<th class="text-center"></th>
-					<th class="text-center">タイトル</th>
-					<th class="text-center">上限金額</th>
-					<th class="text-center">ステータス</th>
+					<th class="text-center align-middle">タイトル</th>
+					<th class="text-center align-middle">上限金額</th>
+					<th class="text-center align-middle">ステータス</th>
 				</thead>
 				<% if @favorites.present? %>
 					<% @favorites.each do |favorite| %>
@@ -15,15 +15,15 @@
 							<td class="text-center fti">
 								<%= attachment_image_tag favorite.buy_post, :image, :fill, 70, 70, format:'jpeg', fallback: "no_image.jpg", size: '70x70' %>
 							</td>
-							<td class="text-center ftt">
+							<td class="text-center align-middle ftt">
 								<span><%= favorite.buy_post.title %></span>
 							</td>
-							<td class="text-center">
+							<td class="text-center align-middle">
 								<span>
 									¥<%= converting_comma(favorite.buy_post.maximum_price) %>まで
 								</span>
 							</td>
-							<td class="text-center">
+							<td class="text-center align-middle">
 								<% if favorite.buy_post.status == "募集中" %>
 									<span class="btn btn-success btn-sm">
 										<%= favorite.buy_post.status %>
@@ -39,7 +39,7 @@
 				<% else %>
 					<tr>
 						<td colspan="4" class="text-center">
-							<span>いいね はありません</span>
+							<span>いいねした募集はありません</span>
 						</td>
 					</tr>
 				<% end %>

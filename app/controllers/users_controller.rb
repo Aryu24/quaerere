@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   end
 
   def favorites
-    @favorites = Favorite.where(user_id: current_user.id)
+    @favorites = Favorite.where(user_id: current_user.id).order(created_at: "desc")
   end
 
   def profile_edit
@@ -68,7 +68,21 @@ class UsersController < ApplicationController
   end
 
   def trades
-    @trade_users = TradeUser.where(user_id: current_user.id)
+    @trade_user_record = TradeUser.where(user_id: current_user.id)
+    @trading = []
+    @waiting_complete = []
+    @traded = []
+    unless @trade_user_record.nil?
+      @trade_user_record.each do |f|
+        if f.trade.status == "未完了"
+         @trading.push(f)
+        elsif f.trade.status == "完了待ち"
+         @waiting_complete.push(f)
+        else
+         @traded.push(f)
+        end
+      end
+    end
   end
 
   def edit

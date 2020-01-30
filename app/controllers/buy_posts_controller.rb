@@ -14,6 +14,7 @@ class BuyPostsController < ApplicationController
 
 	def show
 		@buy_post = BuyPost.find(params[:id])
+		
 		if @buy_post.status == "募集終了"
 			@trade = Trade.find_by(offer_id: @buy_post.offers)
 		end
